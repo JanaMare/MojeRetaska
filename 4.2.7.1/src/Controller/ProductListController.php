@@ -4,16 +4,22 @@ namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
+use App\Repository\ProductRepository;
+use App\Repository\CategoryRepository;
+use Symfony\Component\HttpFoundation\Response;
+
 
 class ProductListController extends AbstractController
 {
     /**
-     * @Route("/product/list", name="product_list")
+     * @Route("/produkty", name="product_list")
      */
-    public function index()
+    public function index(CategoryRepository $categoryRepository, ProductRepository $productRepository) :Response
     {
         return $this->render('product_list/index.html.twig', [
-            'controller_name' => 'ProductListController',
+            'products' => $productRepository->findAll(),
+            'categories'=>$categoryRepository->findAll(),
+
         ]);
     }
 }

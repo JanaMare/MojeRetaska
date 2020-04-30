@@ -1,4 +1,4 @@
-{% extends 'base.html.twig' %}
+{% extends 'admin.html.twig' %}
 
 {% block title %}Product index{% endblock %}
 
@@ -10,6 +10,8 @@
             <tr>
                 <th>Id</th>
                 <th>Name</th>
+                <th>Description</th>
+                <th>Category</th>
                 <th>Price</th>
                 <th>actions</th>
             </tr>
@@ -19,6 +21,8 @@
             <tr>
                 <td>{{ product.id }}</td>
                 <td>{{ product.Name }}</td>
+                <td>{{ product.Description }}</td>
+                <td>{{ product.Category.Name }}</td>
                 <td>{{ product.Price }}</td>
                 <td>
                     <a href="{{ path('product_show', {'id': product.id}) }}">show</a>

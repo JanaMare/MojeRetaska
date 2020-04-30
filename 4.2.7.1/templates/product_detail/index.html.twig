@@ -1,20 +1,30 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello ProductDetailController!{% endblock %}
+{% block title %}{{product.Name}}{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+    <div class="card mb-3">
+        <div class="row no-gutters">
+            <div class="col-md-4">
+                <img src="{{ product.Image }}" class="card-img" alt="...">
+            </div>
+            <div class="col-md-8">
+                <div class="card-body">
+                    <h3 class="card-title">{{product.Name}}</h3>
+                    <p class="card-text"> {{product.Price}} Kč</p>
+                    <p class="card-text"> {{product.Description}} Kč</p>
+                </div>
+            </div>
+        </div>
+    </div>
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ '/var/www/html/public/moje-retaska/4.2.7.1/src/Controller/ProductDetailController.php'|file_link(0) }}">src/Controller/ProductDetailController.php</a></code></li>
-        <li>Your template at <code><a href="{{ '/var/www/html/public/moje-retaska/4.2.7.1/templates/product_detail/index.html.twig'|file_link(0) }}">templates/product_detail/index.html.twig</a></code></li>
-    </ul>
-</div>
+
+
+
+
+    <a href="{{ path('product_list') }}">Zpět k produktům</a>
+
+
+
 {% endblock %}
