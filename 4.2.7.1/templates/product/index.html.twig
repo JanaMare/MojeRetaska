@@ -23,7 +23,7 @@
                 <td>{{ product.Name }}</td>
                 <td>{{ product.Description }}</td>
                 <td>{{ product.Category.Name }}</td>
-                <td>{{ product.Price }}</td>
+                <td>{{ product.Price }} </td>
                 <td>
                     <a href="{{ path('product_show', {'id': product.id}) }}">show</a>
                     <a href="{{ path('product_edit', {'id': product.id}) }}">edit</a>

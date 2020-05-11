@@ -1,10 +1,12 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace App\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use phpDocumentor\Reflection\Types\Nullable;
+use App\Entity\Category;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ProductRepository")
@@ -12,6 +14,7 @@ use Doctrine\ORM\Mapping as ORM;
 class Product
 {
     /**
+     * @var int|null
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
@@ -19,31 +22,37 @@ class Product
     private $id;
 
     /**
+     * @var string
      * @ORM\Column(type="string", length=255)
      */
-    private $Name;
+    private $name;
 
     /**
+     * @var string|Nullable
      * @ORM\Column(type="text", nullable=true)
      */
-    private $Description;
+    private $description;
 
     /**
+     * @var string|Nullable
      * @ORM\Column(type="string", length=255)
      */
-    private $Image;
+    private $image;
 
     /**
+     * @var int|null
      * @ORM\Column(type="integer", length=255)
      */
-    private $Stock;
+    private $stock;
 
     /**
+     * @var float|null
      * @ORM\Column(type="integer", nullable=true)
      */
-    private $Price;
+    private $price;
 
     /**
+     * @var string
      * @ORM\ManyToOne(targetEntity="App\Entity\Category", inversedBy="products")
      */
     private $category;
@@ -55,60 +64,60 @@ class Product
 
     public function getName(): ?string
     {
-        return $this->Name;
+        return $this->name;
     }
 
-    public function setName(string $Name): self
+    public function setName(string $name): self
     {
-        $this->Name = $Name;
+        $this->name = $name;
 
         return $this;
     }
 
     public function getDescription(): ?string
     {
-        return $this->Description;
+        return $this->description;
     }
 
-    public function setDescription(string $Description): self
+    public function setDescription(string $description): self
     {
-        $this->Description = $Description;
+        $this->description = $description;
 
         return $this;
     }
 
     public function getImage(): ?string
     {
-        return $this->Image;
+        return $this->image;
     }
 
-    public function setImage(string $Image): self
+    public function setImage(string $image): self
     {
-        $this->Image = $Image;
+        $this->image = $image;
 
         return $this;
     }
 
     public function getStock(): ?int
     {
-        return $this->Stock;
+        return $this->stock;
     }
 
-    public function setStock(?int $Stock): self
+    public function setStock(?int $stock): self
     {
-        $this->Stock = $Stock;
+        $this->stock = $stock;
 
         return $this;
     }
 
     public function getPrice(): ?int
     {
-        return $this->Price;
+        return $this->price;
     }
 
-    public function setPrice(?int $Price): self
+    public function setPrice(?int $price): self
     {
-        $this->Price = $Price;
+        $this->price = $price;
 
         return $this;
     }

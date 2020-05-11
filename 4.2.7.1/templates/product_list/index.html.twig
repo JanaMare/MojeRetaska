@@ -4,23 +4,34 @@
 
 {% block body %}
 
-    {% for category in categories %}
-        <ul>
-            <li><h4>{{ category.Name }}</h4></li>
-        </ul>
-    {% else %}
-        <tr>
-            <td colspan="4">no records found</td>
-        </tr>
-    {% endfor %}
-
+<div class="row">
+    <div class="col-3">
+        <br>
+        <div class="card">
+            <ul class="list-group list-group-flush">
+                <a href="{{ path('product_list_index') }}">
+                    <li class="list-group-item ">
+                        Všechny produkty
+                    </li>
+                </a>
+                {% for category in categories %}
+                    <a href="{{ path('product_list_category', {'id': category.id}) }}">
+                        <li class="list-group-item ">
+                            {{ category.name }}
+                        </li>
+                    </a>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</div>
     <div class="row">
     {% for product in products %}
         <div class = "card col-md-4">
-            <img src="{{product.Image}}" class="card-img-top" alt="...">
+            <img src="{{product.image}}" class="card-img-top" alt="...">
             <div class="card-body">
-                <h5 class="card-title">{{ product.Name }}</h5>
-                <p class="card-text">{{product.Price}}</p>
+                <h5 class="card-title">{{ product.name }}</h5>
+                <p class="card-text">{{product.price}} Kč </p>
                 <a href="{{ path('product_detail', {'id': product.id}) }}" class="btn btn-success">Detail</a>
             </div>
         </div>
