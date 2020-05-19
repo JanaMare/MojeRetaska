@@ -1,11 +1,43 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Objednávkový formulář!{% endblock %}
+{% block title %}Objednávkový formulář{% endblock %}
 
 {% block body %}
-    {{ form_start(form) }}
-        {{ form_widget(form) }}
-        <button class = " btn btn-success">Odeslat</button>
-    {{ form_end(form) }}
-
+    <div class="container" >
+        <div class="row">
+            <div class="col-8">
+                {{ form_start(form) }}
+                <h5> Osobní údaje </h5>
+                Jméno:
+                {{ form_widget(form.name)}}
+                Příjmení:
+                {{ form_widget(form.surname)}}<br>
+                Ulice:
+                {{ form_widget(form.street)}}
+                Číslo popisné:
+                {{ form_widget(form.streetNumber)}}<br>
+                Město:
+                {{ form_widget(form.city)}}
+                PSČ:
+                {{ form_widget(form.zipCode)}}
+                <i>PSČ zadávejte bez mezer.</i><br>
+                Stát:
+                {{ form_widget(form.country)}}<br>
+                E-mailová adresa:
+                {{ form_widget(form.email)}}
+                Telefonní číslo:
+                {{ form_widget(form.phone)}}
+                <hr>
+                <h5> Dodání </h5>
+                Způsob dodání/převzetí:
+                {{ form_widget(form.shipping)}}<br>
+                Způsob platby:
+                {{ form_widget(form.payment)}}<br>
+                Poznámka:
+                {{ form_widget(form.note)}}
+                <button class="btn">{{ button_label|default('Objednat!') }}</button>
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
 {% endblock %}

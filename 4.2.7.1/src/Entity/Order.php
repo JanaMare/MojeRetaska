@@ -2,7 +2,10 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\OrderRepository")
@@ -79,6 +82,39 @@ class Order
      * @ORM\Column(type="text", nullable=true)
      */
     private $note;
+
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Product")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $product;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $count;
+
+
+    /**
+     * @ORM\Column(type="float", nullable=true)
+     */
+    private $orderPrice;
+
+    /**
+     * @ORM\Column(type="string")
+     * @Assert\NotBlank()
+     * @Assert\Choice(
+     *     choices = {"Nová", "Potvrzená", "Odeslaná", "Zrušená"}
+     *     )
+     */
+    private $orderStatus = "Nová";
+
+    /*public function __construct()
+    {
+        $this->productOrders = new ArrayCollection();
+        $this->product = new ArrayCollection();
+    }*/
 
     public function getId(): ?int
     {
@@ -225,6 +261,57 @@ class Order
     public function setNote(?string $note): self
     {
         $this->note = $note;
+
+        return $this;
+    }
+
+
+
+    public function getProduct(): ?Product
+    {
+        return $this->product;
+    }
+
+    public function setProduct(?Product $product): self
+    {
+        $this->product = $product;
+
+        return $this;
+    }
+
+    public function getCount(): ?int
+    {
+        return $this->count;
+    }
+
+    public function setCount(int $count): self
+    {
+        $this->count = $count;
+
+        return $this;
+    }
+
+    public function getOrderPrice(): ?float
+    {
+        return $this->orderPrice;
+    }
+
+    public function setOrderPrice(float $orderPrice): self
+    {
+        $this->orderPrice = $orderPrice;
+
+        return $this;
+    }
+
+    public function getOrderStatus(): ?string
+    {
+        return $this->orderStatus;
+    }
+
+    public function setOrderStatus(?string $orderStatus): self
+    {
+
+        $this->orderStatus = $orderStatus;
 
         return $this;
     }

@@ -12,6 +12,7 @@
                 <th>Name</th>
                 <th>Description</th>
                 <th>Category</th>
+                <th>Stock</th>
                 <th>Price</th>
                 <th>actions</th>
             </tr>
@@ -23,6 +24,7 @@
                 <td>{{ product.Name }}</td>
                 <td>{{ product.Description }}</td>
                 <td>{{ product.Category.Name }}</td>
+                <td>{{ product.Stock }}</td>
                 <td>{{ product.Price }} </td>
                 <td>
                     <a href="{{ path('product_show', {'id': product.id}) }}">show</a>

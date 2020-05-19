@@ -25,16 +25,17 @@
         </div>
     </div>
 </div>
-    <div class="row">
+ <div class="row">
     {% for product in products %}
-        <div class = "card col-md-4">
-            <img src="{{product.image}}" class="card-img-top" alt="...">
-            <div class="card-body">
-                <h5 class="card-title">{{ product.name }}</h5>
-                <p class="card-text">{{product.price}} Kč </p>
-                <a href="{{ path('product_detail', {'id': product.id}) }}" class="btn btn-success">Detail</a>
-            </div>
-        </div>
+     <div class = "card col-md-4">
+         <img src="{{product.image}}" class="card-img-top" alt="...">
+         <div class="card-body">
+             <a href="{{ path('product_detail', {'id': product.id}) }}" class="card-title">{{ product.name }}</a>
+             <p class="card-text">{{product.price}} Kč </p>
+             <a href="{{ path('order_form', {'id': product.id}) }}" class="btn btn-success">Objednat</a>
+         </div>
+      </div>
+
 
 
     {% else %}
@@ -42,6 +43,7 @@
             <td colspan="4">no records found</td>
         </tr>
     {% endfor %}
-    </div>
+
+ </div>
 
 {% endblock %}
