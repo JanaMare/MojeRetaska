@@ -1,0 +1,19 @@
+{% extends 'admin.html.twig' %}
+
+{% block title %}Úprava objednávky{% endblock %}
+
+{% block body %}
+    <h1>Úprava objednávky</h1>
+
+    {{ form_start(form) }}
+
+    {{ form_widget(form) }}
+
+    <button class="btn">{{ button_label|default('Save') }}</button>
+    {{ form_end(form) }}
+
+    <span><font color="red">Upozornění: po změně stavu objednávky na "Zrušená" již nebude možné objednávku upravovat!</font></span>
+
+    <a href="{{ path('order_index') }}" class="btn btn-secondary">Zpět na výpis</a>
+
+{% endblock %}

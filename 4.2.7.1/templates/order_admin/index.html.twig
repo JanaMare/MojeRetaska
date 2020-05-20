@@ -1,0 +1,75 @@
+{% extends 'admin.html.twig' %}
+
+{% block title %}Administrace objednávek{% endblock %}
+
+{% block body %}
+
+    <h1>Administrace objednávek</h1>
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>Jméno</th>
+            <th>Příjmení</th>
+            <th>Email</th>
+            <th>Telefon</th>
+            <th>Ulice</th>
+            <th>Číslo popisné</th>
+            <th>Město</th>
+            <th>PSČ</th>
+            <th>Stát</th>
+            <th>Poznámka</th>
+            <th>Objednané zboží</th>
+            <th>Počet ks</th>
+            <th>Cena zboží</th>
+            <th>Doprava</th>
+            <th>Cena dopravy</th>
+            <th>Způsob platby</th>
+            <th>Cena platby</th>
+            <th>Stav</th>
+            <th>Akce</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for order in orders %}
+            <tr>
+                <td>{{ order.id }}</td>
+                <td>{{ order.name }}</td>
+                <td>{{ order.surname }}</td>
+                <td>{{ order.email }}</td>
+                <td>{{ order.phone }}</td>
+                <td>{{ order.street }}</td>
+                <td>{{ order.streetNumber }}</td>
+                <td>{{ order.city }}</td>
+                <td>{{ order.zipCode }}</td>
+                <td>{{ order.country.name }} </td>
+                <td>{{ order.note }}</td>
+                <td>{{ order.product.name }}</td>
+                <td>{{ order.count }}</td>
+                <td>{{ order.product.price }}</td>
+                <td>{{ order.shipping.name}}
+                <td>{{ order.shipping.price }}</td>
+                <td>{{ order.payment.name }} </td>
+                <td>{{ order.payment.price }} </td>
+                <td>{{ order.orderStatus }}</td>
+                <td>
+                    <a class="btn btn-info" href="{{ path('order_show', {'id': order.id}) }}">Zobrazit detail</a>
+
+                    {#{% if order.state != 'Zrušená' %}
+                        <a class="btn btn-warning" href="{{ path('order_edit', {'id': order.id}) }}">Upravit</a>
+                    {% endif %}#}
+
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="17">Nejsou evidovány žádné objednávky</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('order_index') }}" class="btn btn-secondary">Zpět na výpis objednávek</a>
+
+{% endblock %}
