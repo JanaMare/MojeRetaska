@@ -46,7 +46,7 @@ class Product
     private $stock;
 
     /**
-     * @var float|null
+     * @var float|Nullable
      * @ORM\Column(type="integer", nullable=true)
      */
     private $price;

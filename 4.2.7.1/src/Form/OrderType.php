@@ -44,11 +44,17 @@ class OrderType extends AbstractType
                 'class' => Shipping::class,
                 'choice_label' => 'name',
                 'label' => 'Doprava',
+                'choice_attr' => function($shipping){
+                    return ['data-price'=>$shipping->getPrice()];
+                }
             ])
             ->add('payment', EntityType::class, [
                 'class' => Payment::class,
                 'choice_label' => 'name',
                 'label' => 'Platba',
+                'choice_attr' => function($payment){
+                    return['data-price'=>$payment->getPrice()];
+                }
             ])
             ->add('orderStatus', ChoiceType::class, [
                 'choice_label' => 'name',
