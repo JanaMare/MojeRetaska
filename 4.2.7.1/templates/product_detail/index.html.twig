@@ -12,8 +12,10 @@
             <div class="col-md-8">
                 <div class="card-body">
                     <h3 class="card-title">{{product.Name}}</h3>
-                    <p class="card-text"> {{product.Price}} Kč</p>
-                    <p class="card-text"> {{product.Description}} Kč</p>
+                    <p class="card-text"> Cena: {{product.Price}} Kč</p>
+                    <p class="card-text"> Skladem: {{product.Stock}} ks</p>
+                    <p class="card-text"> {{product.Description}} </p>
+                    <a href="{{ path('order_form', {'id': product.id}) }}" class="btn btn-success">Objednat</a>
                 </div>
             </div>
         </div>

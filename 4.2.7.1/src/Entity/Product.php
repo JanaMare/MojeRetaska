@@ -46,7 +46,7 @@ class Product
     private $stock;
 
     /**
-     * @var float|null
+     * @var float|Nullable
      * @ORM\Column(type="integer", nullable=true)
      */
     private $price;
@@ -56,6 +56,7 @@ class Product
      * @ORM\ManyToOne(targetEntity="App\Entity\Category", inversedBy="products")
      */
     private $category;
+
 
     public function getId(): ?int
     {
@@ -131,6 +132,18 @@ class Product
     public function setCategory(?Category $category): self
     {
         $this->category = $category;
+        return $this;
+    }
+
+    public function getOrders(): ?Order
+    {
+        return $this->orders;
+    }
+
+    public function setOrders(?Order $orders): self
+    {
+        $this->orders = $orders;
+
         return $this;
     }
 }

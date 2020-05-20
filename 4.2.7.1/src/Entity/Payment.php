@@ -28,6 +28,11 @@ class Payment
      */
     private $orders;
 
+    /**
+     * @ORM\Column(type="float", nullable=true)
+     */
+    private $price;
+
     public function __construct()
     {
         $this->orders = new ArrayCollection();
@@ -77,6 +82,18 @@ class Payment
                 $order->setPayment(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getPrice(): ?int
+    {
+        return $this->price;
+    }
+
+    public function setPrice(?int $price): self
+    {
+        $this->price = $price;
 
         return $this;
     }
