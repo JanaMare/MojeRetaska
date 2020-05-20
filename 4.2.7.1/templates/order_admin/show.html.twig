@@ -1,0 +1,81 @@
+{% extends 'admin.html.twig' %}
+
+
+{% block title %}Objednavka{% endblock %}
+
+{% block body %}
+    <h1>Objednavka</h1>
+
+    <table class="table">
+        <tbody>
+        <tr>
+            <th>Id</th>
+            <td>{{ order.id }}</td>
+        </tr>
+        <tr>
+            <th>Produkt</th>
+            <td>{{ order.product.name }}</td>
+        </tr>
+        <tr>
+            <th>Email</th>
+            <td>{{ order.email }}</td>
+        </tr>
+        <tr>
+            <th>Phone</th>
+            <td>{{ order.phone }}</td>
+        </tr>
+        <tr>
+            <th>Customer Name</th>
+            <td>{{ order.name }}</td>
+        </tr>
+        <tr>
+            <th>Customer Surname</th>
+            <td>{{ order.surname }}</td>
+        </tr>
+        <tr>
+            <th>Street</th>
+            <td>{{ order.street }}</td>
+        </tr>
+        <tr>
+            <th>Street Number</th>
+            <td>{{ order.streetNumber }}</td>
+        </tr>
+        <tr>
+            <th>City</th>
+            <td>{{ order.city }}</td>
+        </tr>
+        <tr>
+            <th>Zip Code</th>
+            <td>{{ order.zipCode }}</td>
+        </tr>
+        <tr>
+            <th>Country</th>
+            <td>{{ order.country.name }}</td>
+        </tr>
+        <tr>
+            <th>Note</th>
+            <td>{{ order.note }}</td>
+        </tr>
+        <tr>
+            <th>ProductPrice</th>
+            <td>{{ order.product.price }}</td>
+        </tr>
+        <tr>
+            <th>ProductCount</th>
+            <td>{{ order.count }}</td>
+        </tr>
+        <th>Stav</th>
+        <td>{{ order.orderStatus }}</td>
+        </tr>
+        </tbody>
+    </table>
+
+    {% if order.orderStatus != 'Zrušená' %}
+        <a href="{{ path('order_edit', {'id': order.id}) }}" class="btn btn-warning">Upravit</a>
+    {% endif %}
+
+
+    <a href="{{ path('order_index') }}" class="btn btn-secondary">Zpět na výpis</a>
+
+{% endblock %}
+
