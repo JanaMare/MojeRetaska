@@ -38,14 +38,17 @@
                 <button class="btn">{{ button_label|default('Objednat!') }}</button>
                 {{ form_end(form) }}
             </div>
-            <h2>Rekapitulace nákupu</h2>
+            <h4>Rekapitulace nákupu</h4>
             <div>
-               {#Cena zboží: <span id="productPrice">{{ order.product.price }} </span> Kč#}
+               Cena zboží: <span id="productPrice" {#productPrice = "{{ order.product.price }}"#} >
+                </span> Kč
             </div>
+            <br>
             <div>
                 Cena dopravy:
                 <span id="shipping"> </span> Kč
             </div>
+            <br>
             <div>
                 Cena platby:
                 <span id="payment"> </span> Kč
@@ -65,38 +68,26 @@
          $(document).ready(function(e){
              shippingPrice = $('#order_shipping option:selected').attr('data-price');
              $('#shipping').text(shippingPrice);
-         })
 
-         $(document).ready(function(e){
+
              paymentPrice = $('#order_payment option:selected').attr('data-price');
              $('#payment').text(paymentPrice);
-         })
 
-         $(document).ready(function(){
+
+             productPrice = $('#order_product option:selected').text();
+             $('#product').text(productPrice);
+
+
              let shippingPrice = $('#shipping').text();
              let paymentPrice = $('#payment').text();
-             {#var productPrice = '{{ productPrice }}';#}
-             let totalPrice = parseInt(shippingPrice) + parseInt(paymentPrice) {#+ parseInt(productPrice)#};
+             let productsPrice = $('#productPrice').text();
+             let totalPrice = parseInt(shippingPrice) + parseInt(paymentPrice) + parseInt(productsPrice);
              $('#totalPrice').text(totalPrice);
          })
 
-         $('#objednavka_eshop_shipping').on('click', function(e){
-             shippingPrice = $('#order_shipping option:selected').attr('data-price');
-             $('#shipping').text(shippingPrice);
-             let paymentPrice = $('#payment').text();
-             {#let productPrice = '{{ productPrice }}';#}
-             let totalPrice = parseInt(shippingPrice) + parseInt(paymentPrice) {#+ parseInt(productPrice)#};
-             $('#totalPrice').text(totalPrice);
-         })
 
-         $('#objednavka_eshop_payment').on('click', function(e){
-             paymentPrice = $('#order_payment option:selected').attr('data-price');
-             $('#payment').text(paymentPrice);
-             let shippingPrice = $('#shipping').text();
-             {#let productPrice = '{{ productPrice }}'#};
-             let totalPrice = parseInt(shippingPrice) + parseInt(paymentPrice) {#+ parseInt(productPrice)#};
-             $('#totalPrice').text(totalPrice);
-         })
+
+
 
      </script>
  {% endblock %}

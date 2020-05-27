@@ -23,7 +23,10 @@ class OrderType extends AbstractType
             ->add('product', EntityType::class, [
                 'class' => Product::class,
                 'choice_label' => 'name',
-                'label' => 'Produkt'
+                'label' => 'Produkt',
+                'choice_attr' => function($product){
+                    return['data-price'=>$product->getPrice()];
+                }
             ])
             ->add('count', null, ['label'=>'Počet kusů'])
             ->add('email', null, ['label'=> 'Email'])
@@ -55,10 +58,6 @@ class OrderType extends AbstractType
                 'choice_attr' => function($payment){
                     return['data-price'=>$payment->getPrice()];
                 }
-            ])
-            ->add('orderStatus', ChoiceType::class, [
-                'choice_label' => 'name',
-                'label' => 'Stav',
             ])
 
             ->add('submit', SubmitType::class, [
