@@ -4,6 +4,14 @@
 
 {% block body %}
 
+    <br>
+    <h1>Vyhledané produkty</h1>
+    {% if search is defined %}
+        <div class="alert alert-info">
+            Výsledky vyhledávání '{{ search }}':
+        </div>
+    {% endif %}
+
 <div class="row">
     <div class="col-3">
         <br>

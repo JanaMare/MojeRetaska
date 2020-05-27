@@ -10,10 +10,29 @@ use App\Entity\Product;
 use App\Entity\Category;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
+use Doctrine\ORM\EntityManagerInterface;
 
 
 class ProductListController extends AbstractController
 {
+    /**
+     * @Route("/produkty/search", name="product_list_search")
+     */
+    public function search (CategoryRepository $categoryRepository, ProductRepository $productRepository, Request $request) :Response
+    {
+        $search = $request->query->get('search');
+        $products = $productRepository->findByName($search);
+        $categories = $categoryRepository->findAll();
+
+        return $this->render('product_list/index.html.twig', [
+            'products' => $products,
+            'categories' => $categories,
+            'search'=> $search,
+        ]);
+    }
+
+
+
     /**
      * @Route("/produkty/{id}", name="product_list_category")
      */
