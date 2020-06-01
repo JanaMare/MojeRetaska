@@ -24,7 +24,7 @@ class ProductRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('p')
             ->andWhere('p.name LIKE :search')
-            ->setParameter('search', $search)
+            ->setParameter('search', '%' . $search . '%')
             ->orderBy('p.id', 'ASC')
             ->setMaxResults(10)
             ->getQuery()
