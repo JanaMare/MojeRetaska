@@ -1,0 +1,94 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Košík{% endblock %}
+
+{% block body %}
+<form id="basket_form" name="basket" action="/187782037/e-finish" method="post" enctype="multipart/form-data">
+    <table class="cart" width="100%">
+        <thead>
+        <tr>
+            <th class="order-product-image-header" width="110">
+                <div align="left"></div>
+            </th>
+            <th width="58%" class="center order_box_text_header">
+                <div align="left">Název</div>
+            </th>
+            <th width="10%" class="center order_row_count_header">
+                Množství            </th>
+            <th width="18%" class="center prices-extra-unit-header">
+                <div align="right">Cena              </div>
+            </th>
+            <th width="18%" class="center prices-header prices-final-header">
+                <div align="right">Celkem                              </div>
+            </th>
+            <th width="3%" class="center basket-remove-item-header">
+            </th>
+        </tr>
+        </thead>
+        <tbody>
+
+
+        {% for product in basket%}
+        <tr class="basket-product-main-info" data-name="" data-id="" data-price="" data-qty="" >
+           <td class="order-product-image">
+                <img class="product_img" src="{{ product.image }}" width="100" border="0" alt="{{ product.name }}" title="{{ product.name }}">
+            </td>
+            <td height="25" class="box_text line-add-note">
+                <a href="/-d332_1039494592.htm">{{product.name}}</a>                     <div class="line-add-text-input">
+                    <strong>Připojit poznámku</strong>
+                    <input type="text" class="product_note" data-id="87983341" name="pozn[87983341][332][14][0][0]">        </div>
+            </td>
+            <td height="25" class="row_count">
+                <input class="items_count product-pcs-spinner" value="1" name="pocet[87983341]" maxlength="6" size="6" type="text">
+                <span class="basket-item-unit">ks</span>
+            </td>
+            <td height="25" class="prices prices-extra-unit" align="right">
+              <span class="price-novat">
+                <span class="price-value">
+                  {{product.price}} &nbspKč </span>
+              </span>
+            </td>
+            <td height="25" class="prices prices-final" align="right">
+              <span class="price-vat">
+                <span class="price-value def_color">
+                  {{ (product.price)}} &nbsp;Kč                </span>
+              </span>
+            </td>
+            <td height="25" class="basket-remove-item" align="center">
+              <span class="nadpis bold">
+                <a class="delete_btns remove_product_from_basket_icons" id="deleteid87983341" href="/basket-remove.htm?pid=87983341">
+                  &nbsp;            x    </a>
+              </span>            </td>
+        </tr>
+
+       {% else %}
+            <tr>
+                <td colspan="17">Váš košík je prázdný.</td>
+            </tr>
+        {% endfor %}
+
+        <tr valign="top" class="total">
+            <td class="price-desc left" colspan="2">
+                <br>
+                CELKEM          </td>
+            <td colspan="4" class="prices">
+            <span class="price-vat">
+              <span class="price-value def_color">
+                <span id="fullprice">
+                  <span class="price_small">&nbsp;Kč</span>
+                  <br>
+                                      <span class="wrapper-tax-payer">
+                                          </span>
+                                        <br>
+                                            <span class="wrapper-recalc-btn">
+                                                  <input type="submit" id="submit_recalc" value="Přepočítat" name="recalc">
+                                                </span>
+                                        </span>
+              </span>
+            </span>
+            </td>
+        </tr>
+        </tbody>
+
+       </table>
+{% endblock %}
