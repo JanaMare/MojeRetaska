@@ -40,7 +40,7 @@
             </div>
             <h4>Rekapitulace nákupu</h4>
             <div>
-               Cena zboží: <span id="productPrice" {#productPrice = "{{ order.product.price }}"#} >
+               Cena zboží: <span id="productPrice" {% set productsPrice = order.product.price * order.product.amount %} >
                 </span> Kč
             </div>
             <br>

@@ -40,7 +40,7 @@
          <div class="card-body">
              <a href="{{ path('product_detail', {'id': product.id}) }}" class="card-title">{{ product.name }}</a>
              <p class="card-text">{{product.price}} Kč </p>
-             <a href="{{ path('order_form', {'id': product.id}) }}" class="btn btn-success">Objednat</a>
+             <a href="{{ path('basketbasket_add', {'id': product.id}) }}" class="btn btn-success">Vložit do košíku</a>
          </div>
       </div>
 

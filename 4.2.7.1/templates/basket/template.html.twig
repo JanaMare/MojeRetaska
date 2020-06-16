@@ -1,0 +1,2797 @@
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello BasketController!{% endblock %}
+
+{% block body %}
+    <form id="basket_form" name="basket" action="/187782037/e-finish" method="post" enctype="multipart/form-data">
+        <table class="cart" width="100%">
+            <thead>
+            <tr>
+                <th class="order-product-image-header" width="110">
+                    <div align="left"></div>
+                </th>
+                <th width="58%" class="center order_box_text_header">
+                    <div align="left">Název</div>
+                </th>
+                <th width="10%" class="center order_row_count_header">
+                    Množství            </th>
+                <th class="center prices-extra-unit-header">
+                    <div align="right">Cena              </div>
+                </th>
+                <th width="18%" class="center prices-header prices-final-header">
+                    <div align="right">Celkem                              </div>
+                </th>
+                <th width="3%" class="center basket-remove-item-header">
+                </th>
+            </tr>
+            </thead>
+            <tbody><tr class="tr_deleteid87983341 basket-product-main-info" data-name="Pumpky zvířátka" data-id="1039494592" data-price="240" data-qty="1" data-variant="Velikost 62 (0-3m)">
+                <td class="order-product-image">
+                    <img class="product_img" src="/fotky77477/fotos/_vyr_332_IMG_4326.jpg" width="100" border="0" alt="Pumpky zvířátka" title="Pumpky zvířátka">
+                </td>
+                <td height="25" class="box_text line-add-note">
+                    <a href="/-d332_1039494592.htm">Pumpky zvířátka</a><br>Velikost 62 (0-3m)                      <div class="line-add-text-input">
+                        <strong>Připojit poznámku</strong>
+                        <input type="text" class="product_note" data-id="87983341" name="pozn[87983341][332][14][0][0]">        </div>
+                </td>
+                <td height="25" class="row_count">
+                    <input class="items_count product-pcs-spinner" value="1" name="pocet[87983341]" maxlength="6" size="6" type="text">
+                    <span class="basket-item-unit">ks</span>
+                </td>
+                <td height="25" class="prices prices-extra-unit" align="right">
+              <span class="price-novat">
+                <span class="price-value">
+                  240,00&nbsp;Kč                </span>
+              </span>
+                </td>
+                <td height="25" class="prices prices-final" align="right">
+              <span class="price-vat">
+                <span class="price-value def_color">
+                  240,00&nbsp;Kč                </span>
+              </span>
+                </td>
+                <td height="25" class="basket-remove-item" align="center">
+              <span class="nadpis bold">
+                <a class="delete_btns remove_product_from_basket_icons" id="deleteid87983341" href="/basket-remove.htm?pid=87983341">
+                  &nbsp;                </a>
+              </span>            </td>
+            </tr>
+
+            <tr valign="top" class="total">
+                <td class="price-desc left" colspan="2">
+                    <br>
+                    CELKEM          </td>
+                <td colspan="4" class="prices">
+            <span class="price-vat">
+              <span class="price-value def_color">
+                <span id="fullprice">
+                  <span class="price_small">560,00&nbsp;Kč</span>
+                  <br>
+                                      <span class="wrapper-tax-payer">
+                                          </span>
+                                        <br>
+                                            <span class="wrapper-recalc-btn">
+                                                  <input type="submit" id="submit_recalc" value="Přepočítat" name="recalc">
+                                                </span>
+                                        </span>
+              </span>
+            </span>
+                </td>
+            </tr>
+            </tbody></table>
+        <script type="text/javascript">
+            function over()
+            {
+                var submit_allowed = true;
+
+                if(shipping_radios.length && payment_radios.length)
+                {
+                    if(!shipping_radios.is(":checked") || !payment_radios.is(":checked"))
+                    {
+                        if(!shipping_radios.is(":checked"))
+                        {
+                            if(!payment_radios.is(":checked"))
+                            {
+                                alert('Musíte vyplnit Způsob dopravy i Způsob platby');
+                                submit_allowed = false;
+                            }
+                            else
+                            {
+                                alert('Musíte vyplnit Způsob dopravy');
+                                submit_allowed = false;
+                            }
+                        }
+                        else
+                        {
+                            alert('Musíte vyplnit Způsob platby');
+                            submit_allowed = false;
+                        }
+                    }
+                }
+                else if(shipping_radios.length)
+                {
+                    if(!shipping_radios.is(":checked"))
+                    {
+                        alert('Musíte vyplnit Způsob dopravy');
+                        submit_allowed = false;
+                    }
+                }
+                else if(payment_radios.length)
+                {
+                    if(!payment_radios.is(":checked"))
+                    {
+                        alert('Musíte vyplnit Způsob platby');
+                        submit_allowed = false;
+                    }
+                }
+
+                if ($('#postovne_form2_3160').length > 0) {
+                    if ($('#postovne_form2_3160').is(":checked")) {
+                        if (!$('#twisto_tc').is(":checked")) {
+                            alert("Zaškrtněte prosím souhlas s obchodními pomínkami twisto.cz");
+                            submit_allowed = false;
+                        }
+                    }
+                }
+                return submit_allowed;
+            }
+
+            jQuery(document).ready(function() {
+                shipping_radios = jQuery('input[name="postovne_form"]');
+                payment_radios = jQuery('input[name="postovne_form2"]');
+                if(shipping_radios.length)
+                {
+                    shipping_radios.removeAttr('checked');
+                    if(payment_radios.length)
+                    {
+                        payment_radios.attr('disabled', 'disabled');
+                        payment_radios.removeAttr('checked');
+                        shipping_radios.click(function()
+                        {
+                            var tmp = jQuery(this).attr('id').split('-');
+                            var shipping_id_string = tmp[0].split('_');
+                            var shipping_type_string = tmp[1].split('_');
+                            var shipping_type = shipping_type_string[0];
+                            payment_radios.attr('disabled', 'disabled');
+                            payment_radios.removeAttr('checked');
+                            var a_cena = 0;
+                            if(shipping_type == 'basic')
+                            {
+                                switch(shipping_id_string[3])
+                                {
+                                    case '2':
+                                        var druh = "hx";
+                                        if(druh == 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').hide();
+                                            $('#cena_dodani_new').replaceWith('<span id="cena_dodani_new">Dobírka dle pobočky</span>');
+                                            a_cena = 1;
+                                        }
+                                        if(druh != 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').show();
+                                            $('#cena_dodani_new').hide();
+                                            a_cena = 0;
+                                        }
+                                        jQuery('input[name="postovne_form2"][value="2"]').removeAttr('disabled');
+                                        var druh = "hx";
+                                        if(druh == 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').hide();
+                                            $('#cena_dodani_new').replaceWith('<span id="cena_dodani_new">Dobírka dle pobočky</span>');
+                                            a_cena = 1;
+                                        }
+                                        if(druh != 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').show();
+                                            $('#cena_dodani_new').hide();
+                                            a_cena = 0;
+                                        }
+                                        jQuery('input[name="postovne_form2"][value="3001"]').removeAttr('disabled');
+                                        var druh = "hx";
+                                        if(druh == 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').hide();
+                                            $('#cena_dodani_new').replaceWith('<span id="cena_dodani_new">Dobírka dle pobočky</span>');
+                                            a_cena = 1;
+                                        }
+                                        if(druh != 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').show();
+                                            $('#cena_dodani_new').hide();
+                                            a_cena = 0;
+                                        }
+                                        jQuery('input[name="postovne_form2"][value="3122"]').removeAttr('disabled');
+                                        var druh = "hx";
+                                        if(druh == 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').hide();
+                                            $('#cena_dodani_new').replaceWith('<span id="cena_dodani_new">Dobírka dle pobočky</span>');
+                                            a_cena = 1;
+                                        }
+                                        if(druh != 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').show();
+                                            $('#cena_dodani_new').hide();
+                                            a_cena = 0;
+                                        }
+                                        jQuery('input[name="postovne_form2"][value="3135"]').removeAttr('disabled');
+                                        var druh = "hx";
+                                        if(druh == 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').hide();
+                                            $('#cena_dodani_new').replaceWith('<span id="cena_dodani_new">Dobírka dle pobočky</span>');
+                                            a_cena = 1;
+                                        }
+                                        if(druh != 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').show();
+                                            $('#cena_dodani_new').hide();
+                                            a_cena = 0;
+                                        }
+                                        jQuery('input[name="postovne_form2"][value="3138"]').removeAttr('disabled');
+                                        var druh = "hx";
+                                        if(druh == 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').hide();
+                                            $('#cena_dodani_new').replaceWith('<span id="cena_dodani_new">Dobírka dle pobočky</span>');
+                                            a_cena = 1;
+                                        }
+                                        if(druh != 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').show();
+                                            $('#cena_dodani_new').hide();
+                                            a_cena = 0;
+                                        }
+                                        jQuery('input[name="postovne_form2"][value="3139"]').removeAttr('disabled');
+                                        var druh = "hx";
+                                        if(druh == 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').hide();
+                                            $('#cena_dodani_new').replaceWith('<span id="cena_dodani_new">Dobírka dle pobočky</span>');
+                                            a_cena = 1;
+                                        }
+                                        if(druh != 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').show();
+                                            $('#cena_dodani_new').hide();
+                                            a_cena = 0;
+                                        }
+                                        jQuery('input[name="postovne_form2"][value="3140"]').removeAttr('disabled');
+                                        var druh = "hx";
+                                        if(druh == 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').hide();
+                                            $('#cena_dodani_new').replaceWith('<span id="cena_dodani_new">Dobírka dle pobočky</span>');
+                                            a_cena = 1;
+                                        }
+                                        if(druh != 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').show();
+                                            $('#cena_dodani_new').hide();
+                                            a_cena = 0;
+                                        }
+                                        jQuery('input[name="postovne_form2"][value="3141"]').removeAttr('disabled');
+                                        var druh = "hx";
+                                        if(druh == 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').hide();
+                                            $('#cena_dodani_new').replaceWith('<span id="cena_dodani_new">Dobírka dle pobočky</span>');
+                                            a_cena = 1;
+                                        }
+                                        if(druh != 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').show();
+                                            $('#cena_dodani_new').hide();
+                                            a_cena = 0;
+                                        }
+                                        jQuery('input[name="postovne_form2"][value="3142"]').removeAttr('disabled');
+                                        var druh = "hx";
+                                        if(druh == 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').hide();
+                                            $('#cena_dodani_new').replaceWith('<span id="cena_dodani_new">Dobírka dle pobočky</span>');
+                                            a_cena = 1;
+                                        }
+                                        if(druh != 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').show();
+                                            $('#cena_dodani_new').hide();
+                                            a_cena = 0;
+                                        }
+                                        jQuery('input[name="postovne_form2"][value="3143"]').removeAttr('disabled');
+                                        var druh = "hx";
+                                        if(druh == 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').hide();
+                                            $('#cena_dodani_new').replaceWith('<span id="cena_dodani_new">Dobírka dle pobočky</span>');
+                                            a_cena = 1;
+                                        }
+                                        if(druh != 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').show();
+                                            $('#cena_dodani_new').hide();
+                                            a_cena = 0;
+                                        }
+                                        jQuery('input[name="postovne_form2"][value="3147"]').removeAttr('disabled');
+                                        break;
+                                    case '3':
+                                        var druh = "sx";
+                                        if(druh == 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').hide();
+                                            $('#cena_dodani_new').replaceWith('<span id="cena_dodani_new">Dobírka dle pobočky</span>');
+                                            a_cena = 1;
+                                        }
+                                        if(druh != 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').show();
+                                            $('#cena_dodani_new').hide();
+                                            a_cena = 0;
+                                        }
+                                        jQuery('input[name="postovne_form2"][value="2"]').removeAttr('disabled');
+                                        var druh = "sx";
+                                        if(druh == 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').hide();
+                                            $('#cena_dodani_new').replaceWith('<span id="cena_dodani_new">Dobírka dle pobočky</span>');
+                                            a_cena = 1;
+                                        }
+                                        if(druh != 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').show();
+                                            $('#cena_dodani_new').hide();
+                                            a_cena = 0;
+                                        }
+                                        jQuery('input[name="postovne_form2"][value="3000"]').removeAttr('disabled');
+                                        break;
+                                    case '4':
+                                        var druh = "sx";
+                                        if(druh == 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').hide();
+                                            $('#cena_dodani_new').replaceWith('<span id="cena_dodani_new">Dobírka dle pobočky</span>');
+                                            a_cena = 1;
+                                        }
+                                        if(druh != 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').show();
+                                            $('#cena_dodani_new').hide();
+                                            a_cena = 0;
+                                        }
+                                        jQuery('input[name="postovne_form2"][value="2"]').removeAttr('disabled');
+                                        var druh = "sx";
+                                        if(druh == 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').hide();
+                                            $('#cena_dodani_new').replaceWith('<span id="cena_dodani_new">Dobírka dle pobočky</span>');
+                                            a_cena = 1;
+                                        }
+                                        if(druh != 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').show();
+                                            $('#cena_dodani_new').hide();
+                                            a_cena = 0;
+                                        }
+                                        jQuery('input[name="postovne_form2"][value="3000"]').removeAttr('disabled');
+                                        break;
+                                    case '5':
+                                        var druh = "o";
+                                        if(druh == 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').hide();
+                                            $('#cena_dodani_new').replaceWith('<span id="cena_dodani_new">Dobírka dle pobočky</span>');
+                                            a_cena = 1;
+                                        }
+                                        if(druh != 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').show();
+                                            $('#cena_dodani_new').hide();
+                                            a_cena = 0;
+                                        }
+                                        jQuery('input[name="postovne_form2"][value="1"]').removeAttr('disabled');
+                                        var druh = "o";
+                                        if(druh == 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').hide();
+                                            $('#cena_dodani_new').replaceWith('<span id="cena_dodani_new">Dobírka dle pobočky</span>');
+                                            a_cena = 1;
+                                        }
+                                        if(druh != 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').show();
+                                            $('#cena_dodani_new').hide();
+                                            a_cena = 0;
+                                        }
+                                        jQuery('input[name="postovne_form2"][value="2"]').removeAttr('disabled');
+                                        var druh = "o";
+                                        if(druh == 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').hide();
+                                            $('#cena_dodani_new').replaceWith('<span id="cena_dodani_new">Dobírka dle pobočky</span>');
+                                            a_cena = 1;
+                                        }
+                                        if(druh != 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').show();
+                                            $('#cena_dodani_new').hide();
+                                            a_cena = 0;
+                                        }
+                                        jQuery('input[name="postovne_form2"][value="3001"]').removeAttr('disabled');
+                                        var druh = "o";
+                                        if(druh == 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').hide();
+                                            $('#cena_dodani_new').replaceWith('<span id="cena_dodani_new">Dobírka dle pobočky</span>');
+                                            a_cena = 1;
+                                        }
+                                        if(druh != 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').show();
+                                            $('#cena_dodani_new').hide();
+                                            a_cena = 0;
+                                        }
+                                        jQuery('input[name="postovne_form2"][value="3122"]').removeAttr('disabled');
+                                        var druh = "o";
+                                        if(druh == 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').hide();
+                                            $('#cena_dodani_new').replaceWith('<span id="cena_dodani_new">Dobírka dle pobočky</span>');
+                                            a_cena = 1;
+                                        }
+                                        if(druh != 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').show();
+                                            $('#cena_dodani_new').hide();
+                                            a_cena = 0;
+                                        }
+                                        jQuery('input[name="postovne_form2"][value="3135"]').removeAttr('disabled');
+                                        var druh = "o";
+                                        if(druh == 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').hide();
+                                            $('#cena_dodani_new').replaceWith('<span id="cena_dodani_new">Dobírka dle pobočky</span>');
+                                            a_cena = 1;
+                                        }
+                                        if(druh != 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').show();
+                                            $('#cena_dodani_new').hide();
+                                            a_cena = 0;
+                                        }
+                                        jQuery('input[name="postovne_form2"][value="3138"]').removeAttr('disabled');
+                                        var druh = "o";
+                                        if(druh == 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').hide();
+                                            $('#cena_dodani_new').replaceWith('<span id="cena_dodani_new">Dobírka dle pobočky</span>');
+                                            a_cena = 1;
+                                        }
+                                        if(druh != 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').show();
+                                            $('#cena_dodani_new').hide();
+                                            a_cena = 0;
+                                        }
+                                        jQuery('input[name="postovne_form2"][value="3139"]').removeAttr('disabled');
+                                        var druh = "o";
+                                        if(druh == 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').hide();
+                                            $('#cena_dodani_new').replaceWith('<span id="cena_dodani_new">Dobírka dle pobočky</span>');
+                                            a_cena = 1;
+                                        }
+                                        if(druh != 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').show();
+                                            $('#cena_dodani_new').hide();
+                                            a_cena = 0;
+                                        }
+                                        jQuery('input[name="postovne_form2"][value="3140"]').removeAttr('disabled');
+                                        var druh = "o";
+                                        if(druh == 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').hide();
+                                            $('#cena_dodani_new').replaceWith('<span id="cena_dodani_new">Dobírka dle pobočky</span>');
+                                            a_cena = 1;
+                                        }
+                                        if(druh != 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').show();
+                                            $('#cena_dodani_new').hide();
+                                            a_cena = 0;
+                                        }
+                                        jQuery('input[name="postovne_form2"][value="3141"]').removeAttr('disabled');
+                                        var druh = "o";
+                                        if(druh == 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').hide();
+                                            $('#cena_dodani_new').replaceWith('<span id="cena_dodani_new">Dobírka dle pobočky</span>');
+                                            a_cena = 1;
+                                        }
+                                        if(druh != 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').show();
+                                            $('#cena_dodani_new').hide();
+                                            a_cena = 0;
+                                        }
+                                        jQuery('input[name="postovne_form2"][value="3142"]').removeAttr('disabled');
+                                        var druh = "o";
+                                        if(druh == 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').hide();
+                                            $('#cena_dodani_new').replaceWith('<span id="cena_dodani_new">Dobírka dle pobočky</span>');
+                                            a_cena = 1;
+                                        }
+                                        if(druh != 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').show();
+                                            $('#cena_dodani_new').hide();
+                                            a_cena = 0;
+                                        }
+                                        jQuery('input[name="postovne_form2"][value="3143"]').removeAttr('disabled');
+                                        var druh = "o";
+                                        if(druh == 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').hide();
+                                            $('#cena_dodani_new').replaceWith('<span id="cena_dodani_new">Dobírka dle pobočky</span>');
+                                            a_cena = 1;
+                                        }
+                                        if(druh != 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').show();
+                                            $('#cena_dodani_new').hide();
+                                            a_cena = 0;
+                                        }
+                                        jQuery('input[name="postovne_form2"][value="3147"]').removeAttr('disabled');
+                                        break;
+                                    case '6':
+                                        var druh = "sx";
+                                        if(druh == 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').hide();
+                                            $('#cena_dodani_new').replaceWith('<span id="cena_dodani_new">Dobírka dle pobočky</span>');
+                                            a_cena = 1;
+                                        }
+                                        if(druh != 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').show();
+                                            $('#cena_dodani_new').hide();
+                                            a_cena = 0;
+                                        }
+                                        jQuery('input[name="postovne_form2"][value="2"]').removeAttr('disabled');
+                                        var druh = "sx";
+                                        if(druh == 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').hide();
+                                            $('#cena_dodani_new').replaceWith('<span id="cena_dodani_new">Dobírka dle pobočky</span>');
+                                            a_cena = 1;
+                                        }
+                                        if(druh != 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').show();
+                                            $('#cena_dodani_new').hide();
+                                            a_cena = 0;
+                                        }
+                                        jQuery('input[name="postovne_form2"][value="3000"]').removeAttr('disabled');
+                                        break;
+                                    case '7':
+                                        var druh = "z";
+                                        if(druh == 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').hide();
+                                            $('#cena_dodani_new').replaceWith('<span id="cena_dodani_new">Dobírka dle pobočky</span>');
+                                            a_cena = 1;
+                                        }
+                                        if(druh != 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').show();
+                                            $('#cena_dodani_new').hide();
+                                            a_cena = 0;
+                                        }
+                                        jQuery('input[name="postovne_form2"][value="2"]').removeAttr('disabled');
+                                        var druh = "z";
+                                        if(druh == 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').hide();
+                                            $('#cena_dodani_new').replaceWith('<span id="cena_dodani_new">Dobírka dle pobočky</span>');
+                                            a_cena = 1;
+                                        }
+                                        if(druh != 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').show();
+                                            $('#cena_dodani_new').hide();
+                                            a_cena = 0;
+                                        }
+                                        jQuery('input[name="postovne_form2"][value="3001"]').removeAttr('disabled');
+                                        var druh = "z";
+                                        if(druh == 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').hide();
+                                            $('#cena_dodani_new').replaceWith('<span id="cena_dodani_new">Dobírka dle pobočky</span>');
+                                            a_cena = 1;
+                                        }
+                                        if(druh != 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').show();
+                                            $('#cena_dodani_new').hide();
+                                            a_cena = 0;
+                                        }
+                                        jQuery('input[name="postovne_form2"][value="3122"]').removeAttr('disabled');
+                                        var druh = "z";
+                                        if(druh == 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').hide();
+                                            $('#cena_dodani_new').replaceWith('<span id="cena_dodani_new">Dobírka dle pobočky</span>');
+                                            a_cena = 1;
+                                        }
+                                        if(druh != 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').show();
+                                            $('#cena_dodani_new').hide();
+                                            a_cena = 0;
+                                        }
+                                        jQuery('input[name="postovne_form2"][value="3135"]').removeAttr('disabled');
+                                        var druh = "z";
+                                        if(druh == 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').hide();
+                                            $('#cena_dodani_new').replaceWith('<span id="cena_dodani_new">Dobírka dle pobočky</span>');
+                                            a_cena = 1;
+                                        }
+                                        if(druh != 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').show();
+                                            $('#cena_dodani_new').hide();
+                                            a_cena = 0;
+                                        }
+                                        jQuery('input[name="postovne_form2"][value="3138"]').removeAttr('disabled');
+                                        var druh = "z";
+                                        if(druh == 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').hide();
+                                            $('#cena_dodani_new').replaceWith('<span id="cena_dodani_new">Dobírka dle pobočky</span>');
+                                            a_cena = 1;
+                                        }
+                                        if(druh != 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').show();
+                                            $('#cena_dodani_new').hide();
+                                            a_cena = 0;
+                                        }
+                                        jQuery('input[name="postovne_form2"][value="3139"]').removeAttr('disabled');
+                                        var druh = "z";
+                                        if(druh == 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').hide();
+                                            $('#cena_dodani_new').replaceWith('<span id="cena_dodani_new">Dobírka dle pobočky</span>');
+                                            a_cena = 1;
+                                        }
+                                        if(druh != 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').show();
+                                            $('#cena_dodani_new').hide();
+                                            a_cena = 0;
+                                        }
+                                        jQuery('input[name="postovne_form2"][value="3140"]').removeAttr('disabled');
+                                        var druh = "z";
+                                        if(druh == 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').hide();
+                                            $('#cena_dodani_new').replaceWith('<span id="cena_dodani_new">Dobírka dle pobočky</span>');
+                                            a_cena = 1;
+                                        }
+                                        if(druh != 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').show();
+                                            $('#cena_dodani_new').hide();
+                                            a_cena = 0;
+                                        }
+                                        jQuery('input[name="postovne_form2"][value="3141"]').removeAttr('disabled');
+                                        var druh = "z";
+                                        if(druh == 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').hide();
+                                            $('#cena_dodani_new').replaceWith('<span id="cena_dodani_new">Dobírka dle pobočky</span>');
+                                            a_cena = 1;
+                                        }
+                                        if(druh != 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').show();
+                                            $('#cena_dodani_new').hide();
+                                            a_cena = 0;
+                                        }
+                                        jQuery('input[name="postovne_form2"][value="3142"]').removeAttr('disabled');
+                                        var druh = "z";
+                                        if(druh == 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').hide();
+                                            $('#cena_dodani_new').replaceWith('<span id="cena_dodani_new">Dobírka dle pobočky</span>');
+                                            a_cena = 1;
+                                        }
+                                        if(druh != 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').show();
+                                            $('#cena_dodani_new').hide();
+                                            a_cena = 0;
+                                        }
+                                        jQuery('input[name="postovne_form2"][value="3143"]').removeAttr('disabled');
+                                        var druh = "z";
+                                        if(druh == 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').hide();
+                                            $('#cena_dodani_new').replaceWith('<span id="cena_dodani_new">Dobírka dle pobočky</span>');
+                                            a_cena = 1;
+                                        }
+                                        if(druh != 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').show();
+                                            $('#cena_dodani_new').hide();
+                                            a_cena = 0;
+                                        }
+                                        jQuery('input[name="postovne_form2"][value="3147"]').removeAttr('disabled');
+                                        break;
+                                    case '8':
+                                        var druh = "wx";
+                                        if(druh == 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').hide();
+                                            $('#cena_dodani_new').replaceWith('<span id="cena_dodani_new">Dobírka dle pobočky</span>');
+                                            a_cena = 1;
+                                        }
+                                        if(druh != 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').show();
+                                            $('#cena_dodani_new').hide();
+                                            a_cena = 0;
+                                        }
+                                        jQuery('input[name="postovne_form2"][value="2"]').removeAttr('disabled');
+                                        var druh = "wx";
+                                        if(druh == 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').hide();
+                                            $('#cena_dodani_new').replaceWith('<span id="cena_dodani_new">Dobírka dle pobočky</span>');
+                                            a_cena = 1;
+                                        }
+                                        if(druh != 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').show();
+                                            $('#cena_dodani_new').hide();
+                                            a_cena = 0;
+                                        }
+                                        jQuery('input[name="postovne_form2"][value="3001"]').removeAttr('disabled');
+                                        var druh = "wx";
+                                        if(druh == 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').hide();
+                                            $('#cena_dodani_new').replaceWith('<span id="cena_dodani_new">Dobírka dle pobočky</span>');
+                                            a_cena = 1;
+                                        }
+                                        if(druh != 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').show();
+                                            $('#cena_dodani_new').hide();
+                                            a_cena = 0;
+                                        }
+                                        jQuery('input[name="postovne_form2"][value="3122"]').removeAttr('disabled');
+                                        var druh = "wx";
+                                        if(druh == 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').hide();
+                                            $('#cena_dodani_new').replaceWith('<span id="cena_dodani_new">Dobírka dle pobočky</span>');
+                                            a_cena = 1;
+                                        }
+                                        if(druh != 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').show();
+                                            $('#cena_dodani_new').hide();
+                                            a_cena = 0;
+                                        }
+                                        jQuery('input[name="postovne_form2"][value="3135"]').removeAttr('disabled');
+                                        var druh = "wx";
+                                        if(druh == 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').hide();
+                                            $('#cena_dodani_new').replaceWith('<span id="cena_dodani_new">Dobírka dle pobočky</span>');
+                                            a_cena = 1;
+                                        }
+                                        if(druh != 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').show();
+                                            $('#cena_dodani_new').hide();
+                                            a_cena = 0;
+                                        }
+                                        jQuery('input[name="postovne_form2"][value="3138"]').removeAttr('disabled');
+                                        var druh = "wx";
+                                        if(druh == 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').hide();
+                                            $('#cena_dodani_new').replaceWith('<span id="cena_dodani_new">Dobírka dle pobočky</span>');
+                                            a_cena = 1;
+                                        }
+                                        if(druh != 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').show();
+                                            $('#cena_dodani_new').hide();
+                                            a_cena = 0;
+                                        }
+                                        jQuery('input[name="postovne_form2"][value="3139"]').removeAttr('disabled');
+                                        var druh = "wx";
+                                        if(druh == 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').hide();
+                                            $('#cena_dodani_new').replaceWith('<span id="cena_dodani_new">Dobírka dle pobočky</span>');
+                                            a_cena = 1;
+                                        }
+                                        if(druh != 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').show();
+                                            $('#cena_dodani_new').hide();
+                                            a_cena = 0;
+                                        }
+                                        jQuery('input[name="postovne_form2"][value="3140"]').removeAttr('disabled');
+                                        var druh = "wx";
+                                        if(druh == 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').hide();
+                                            $('#cena_dodani_new').replaceWith('<span id="cena_dodani_new">Dobírka dle pobočky</span>');
+                                            a_cena = 1;
+                                        }
+                                        if(druh != 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').show();
+                                            $('#cena_dodani_new').hide();
+                                            a_cena = 0;
+                                        }
+                                        jQuery('input[name="postovne_form2"][value="3141"]').removeAttr('disabled');
+                                        var druh = "wx";
+                                        if(druh == 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').hide();
+                                            $('#cena_dodani_new').replaceWith('<span id="cena_dodani_new">Dobírka dle pobočky</span>');
+                                            a_cena = 1;
+                                        }
+                                        if(druh != 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').show();
+                                            $('#cena_dodani_new').hide();
+                                            a_cena = 0;
+                                        }
+                                        jQuery('input[name="postovne_form2"][value="3142"]').removeAttr('disabled');
+                                        var druh = "wx";
+                                        if(druh == 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').hide();
+                                            $('#cena_dodani_new').replaceWith('<span id="cena_dodani_new">Dobírka dle pobočky</span>');
+                                            a_cena = 1;
+                                        }
+                                        if(druh != 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').show();
+                                            $('#cena_dodani_new').hide();
+                                            a_cena = 0;
+                                        }
+                                        jQuery('input[name="postovne_form2"][value="3143"]').removeAttr('disabled');
+                                        var druh = "wx";
+                                        if(druh == 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').hide();
+                                            $('#cena_dodani_new').replaceWith('<span id="cena_dodani_new">Dobírka dle pobočky</span>');
+                                            a_cena = 1;
+                                        }
+                                        if(druh != 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').show();
+                                            $('#cena_dodani_new').hide();
+                                            a_cena = 0;
+                                        }
+                                        jQuery('input[name="postovne_form2"][value="3147"]').removeAttr('disabled');
+                                        break;
+                                    case '10':
+                                        var druh = "sx";
+                                        if(druh == 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').hide();
+                                            $('#cena_dodani_new').replaceWith('<span id="cena_dodani_new">Dobírka dle pobočky</span>');
+                                            a_cena = 1;
+                                        }
+                                        if(druh != 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').show();
+                                            $('#cena_dodani_new').hide();
+                                            a_cena = 0;
+                                        }
+                                        jQuery('input[name="postovne_form2"][value="1"]').removeAttr('disabled');
+                                        var druh = "sx";
+                                        if(druh == 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').hide();
+                                            $('#cena_dodani_new').replaceWith('<span id="cena_dodani_new">Dobírka dle pobočky</span>');
+                                            a_cena = 1;
+                                        }
+                                        if(druh != 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').show();
+                                            $('#cena_dodani_new').hide();
+                                            a_cena = 0;
+                                        }
+                                        jQuery('input[name="postovne_form2"][value="2"]').removeAttr('disabled');
+                                        var druh = "sx";
+                                        if(druh == 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').hide();
+                                            $('#cena_dodani_new').replaceWith('<span id="cena_dodani_new">Dobírka dle pobočky</span>');
+                                            a_cena = 1;
+                                        }
+                                        if(druh != 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').show();
+                                            $('#cena_dodani_new').hide();
+                                            a_cena = 0;
+                                        }
+                                        jQuery('input[name="postovne_form2"][value="3000"]').removeAttr('disabled');
+                                        break;
+                                    case '11':
+                                        var druh = "z_sk";
+                                        if(druh == 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').hide();
+                                            $('#cena_dodani_new').replaceWith('<span id="cena_dodani_new">Dobírka dle pobočky</span>');
+                                            a_cena = 1;
+                                        }
+                                        if(druh != 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').show();
+                                            $('#cena_dodani_new').hide();
+                                            a_cena = 0;
+                                        }
+                                        jQuery('input[name="postovne_form2"][value="2"]').removeAttr('disabled');
+                                        var druh = "z_sk";
+                                        if(druh == 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').hide();
+                                            $('#cena_dodani_new').replaceWith('<span id="cena_dodani_new">Dobírka dle pobočky</span>');
+                                            a_cena = 1;
+                                        }
+                                        if(druh != 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').show();
+                                            $('#cena_dodani_new').hide();
+                                            a_cena = 0;
+                                        }
+                                        jQuery('input[name="postovne_form2"][value="3001"]').removeAttr('disabled');
+                                        var druh = "z_sk";
+                                        if(druh == 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').hide();
+                                            $('#cena_dodani_new').replaceWith('<span id="cena_dodani_new">Dobírka dle pobočky</span>');
+                                            a_cena = 1;
+                                        }
+                                        if(druh != 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').show();
+                                            $('#cena_dodani_new').hide();
+                                            a_cena = 0;
+                                        }
+                                        jQuery('input[name="postovne_form2"][value="3122"]').removeAttr('disabled');
+                                        var druh = "z_sk";
+                                        if(druh == 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').hide();
+                                            $('#cena_dodani_new').replaceWith('<span id="cena_dodani_new">Dobírka dle pobočky</span>');
+                                            a_cena = 1;
+                                        }
+                                        if(druh != 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').show();
+                                            $('#cena_dodani_new').hide();
+                                            a_cena = 0;
+                                        }
+                                        jQuery('input[name="postovne_form2"][value="3135"]').removeAttr('disabled');
+                                        var druh = "z_sk";
+                                        if(druh == 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').hide();
+                                            $('#cena_dodani_new').replaceWith('<span id="cena_dodani_new">Dobírka dle pobočky</span>');
+                                            a_cena = 1;
+                                        }
+                                        if(druh != 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').show();
+                                            $('#cena_dodani_new').hide();
+                                            a_cena = 0;
+                                        }
+                                        jQuery('input[name="postovne_form2"][value="3138"]').removeAttr('disabled');
+                                        var druh = "z_sk";
+                                        if(druh == 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').hide();
+                                            $('#cena_dodani_new').replaceWith('<span id="cena_dodani_new">Dobírka dle pobočky</span>');
+                                            a_cena = 1;
+                                        }
+                                        if(druh != 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').show();
+                                            $('#cena_dodani_new').hide();
+                                            a_cena = 0;
+                                        }
+                                        jQuery('input[name="postovne_form2"][value="3139"]').removeAttr('disabled');
+                                        var druh = "z_sk";
+                                        if(druh == 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').hide();
+                                            $('#cena_dodani_new').replaceWith('<span id="cena_dodani_new">Dobírka dle pobočky</span>');
+                                            a_cena = 1;
+                                        }
+                                        if(druh != 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').show();
+                                            $('#cena_dodani_new').hide();
+                                            a_cena = 0;
+                                        }
+                                        jQuery('input[name="postovne_form2"][value="3140"]').removeAttr('disabled');
+                                        var druh = "z_sk";
+                                        if(druh == 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').hide();
+                                            $('#cena_dodani_new').replaceWith('<span id="cena_dodani_new">Dobírka dle pobočky</span>');
+                                            a_cena = 1;
+                                        }
+                                        if(druh != 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').show();
+                                            $('#cena_dodani_new').hide();
+                                            a_cena = 0;
+                                        }
+                                        jQuery('input[name="postovne_form2"][value="3141"]').removeAttr('disabled');
+                                        var druh = "z_sk";
+                                        if(druh == 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').hide();
+                                            $('#cena_dodani_new').replaceWith('<span id="cena_dodani_new">Dobírka dle pobočky</span>');
+                                            a_cena = 1;
+                                        }
+                                        if(druh != 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').show();
+                                            $('#cena_dodani_new').hide();
+                                            a_cena = 0;
+                                        }
+                                        jQuery('input[name="postovne_form2"][value="3142"]').removeAttr('disabled');
+                                        var druh = "z_sk";
+                                        if(druh == 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').hide();
+                                            $('#cena_dodani_new').replaceWith('<span id="cena_dodani_new">Dobírka dle pobočky</span>');
+                                            a_cena = 1;
+                                        }
+                                        if(druh != 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').show();
+                                            $('#cena_dodani_new').hide();
+                                            a_cena = 0;
+                                        }
+                                        jQuery('input[name="postovne_form2"][value="3143"]').removeAttr('disabled');
+                                        var druh = "z_sk";
+                                        if(druh == 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').hide();
+                                            $('#cena_dodani_new').replaceWith('<span id="cena_dodani_new">Dobírka dle pobočky</span>');
+                                            a_cena = 1;
+                                        }
+                                        if(druh != 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').show();
+                                            $('#cena_dodani_new').hide();
+                                            a_cena = 0;
+                                        }
+                                        jQuery('input[name="postovne_form2"][value="3147"]').removeAttr('disabled');
+                                        break;
+                                    case '13':
+                                        var druh = "sx";
+                                        if(druh == 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').hide();
+                                            $('#cena_dodani_new').replaceWith('<span id="cena_dodani_new">Dobírka dle pobočky</span>');
+                                            a_cena = 1;
+                                        }
+                                        if(druh != 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').show();
+                                            $('#cena_dodani_new').hide();
+                                            a_cena = 0;
+                                        }
+                                        jQuery('input[name="postovne_form2"][value="1"]').removeAttr('disabled');
+                                        var druh = "sx";
+                                        if(druh == 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').hide();
+                                            $('#cena_dodani_new').replaceWith('<span id="cena_dodani_new">Dobírka dle pobočky</span>');
+                                            a_cena = 1;
+                                        }
+                                        if(druh != 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').show();
+                                            $('#cena_dodani_new').hide();
+                                            a_cena = 0;
+                                        }
+                                        jQuery('input[name="postovne_form2"][value="2"]').removeAttr('disabled');
+                                        var druh = "sx";
+                                        if(druh == 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').hide();
+                                            $('#cena_dodani_new').replaceWith('<span id="cena_dodani_new">Dobírka dle pobočky</span>');
+                                            a_cena = 1;
+                                        }
+                                        if(druh != 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').show();
+                                            $('#cena_dodani_new').hide();
+                                            a_cena = 0;
+                                        }
+                                        jQuery('input[name="postovne_form2"][value="3000"]').removeAttr('disabled');
+                                        break;
+                                    case '14':
+                                        var druh = "s";
+                                        if(druh == 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').hide();
+                                            $('#cena_dodani_new').replaceWith('<span id="cena_dodani_new">Dobírka dle pobočky</span>');
+                                            a_cena = 1;
+                                        }
+                                        if(druh != 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').show();
+                                            $('#cena_dodani_new').hide();
+                                            a_cena = 0;
+                                        }
+                                        jQuery('input[name="postovne_form2"][value="2"]').removeAttr('disabled');
+                                        var druh = "s";
+                                        if(druh == 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').hide();
+                                            $('#cena_dodani_new').replaceWith('<span id="cena_dodani_new">Dobírka dle pobočky</span>');
+                                            a_cena = 1;
+                                        }
+                                        if(druh != 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').show();
+                                            $('#cena_dodani_new').hide();
+                                            a_cena = 0;
+                                        }
+                                        jQuery('input[name="postovne_form2"][value="3001"]').removeAttr('disabled');
+                                        var druh = "s";
+                                        if(druh == 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').hide();
+                                            $('#cena_dodani_new').replaceWith('<span id="cena_dodani_new">Dobírka dle pobočky</span>');
+                                            a_cena = 1;
+                                        }
+                                        if(druh != 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').show();
+                                            $('#cena_dodani_new').hide();
+                                            a_cena = 0;
+                                        }
+                                        jQuery('input[name="postovne_form2"][value="3122"]').removeAttr('disabled');
+                                        var druh = "s";
+                                        if(druh == 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').hide();
+                                            $('#cena_dodani_new').replaceWith('<span id="cena_dodani_new">Dobírka dle pobočky</span>');
+                                            a_cena = 1;
+                                        }
+                                        if(druh != 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').show();
+                                            $('#cena_dodani_new').hide();
+                                            a_cena = 0;
+                                        }
+                                        jQuery('input[name="postovne_form2"][value="3135"]').removeAttr('disabled');
+                                        var druh = "s";
+                                        if(druh == 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').hide();
+                                            $('#cena_dodani_new').replaceWith('<span id="cena_dodani_new">Dobírka dle pobočky</span>');
+                                            a_cena = 1;
+                                        }
+                                        if(druh != 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').show();
+                                            $('#cena_dodani_new').hide();
+                                            a_cena = 0;
+                                        }
+                                        jQuery('input[name="postovne_form2"][value="3138"]').removeAttr('disabled');
+                                        var druh = "s";
+                                        if(druh == 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').hide();
+                                            $('#cena_dodani_new').replaceWith('<span id="cena_dodani_new">Dobírka dle pobočky</span>');
+                                            a_cena = 1;
+                                        }
+                                        if(druh != 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').show();
+                                            $('#cena_dodani_new').hide();
+                                            a_cena = 0;
+                                        }
+                                        jQuery('input[name="postovne_form2"][value="3139"]').removeAttr('disabled');
+                                        var druh = "s";
+                                        if(druh == 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').hide();
+                                            $('#cena_dodani_new').replaceWith('<span id="cena_dodani_new">Dobírka dle pobočky</span>');
+                                            a_cena = 1;
+                                        }
+                                        if(druh != 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').show();
+                                            $('#cena_dodani_new').hide();
+                                            a_cena = 0;
+                                        }
+                                        jQuery('input[name="postovne_form2"][value="3140"]').removeAttr('disabled');
+                                        var druh = "s";
+                                        if(druh == 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').hide();
+                                            $('#cena_dodani_new').replaceWith('<span id="cena_dodani_new">Dobírka dle pobočky</span>');
+                                            a_cena = 1;
+                                        }
+                                        if(druh != 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').show();
+                                            $('#cena_dodani_new').hide();
+                                            a_cena = 0;
+                                        }
+                                        jQuery('input[name="postovne_form2"][value="3141"]').removeAttr('disabled');
+                                        var druh = "s";
+                                        if(druh == 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').hide();
+                                            $('#cena_dodani_new').replaceWith('<span id="cena_dodani_new">Dobírka dle pobočky</span>');
+                                            a_cena = 1;
+                                        }
+                                        if(druh != 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').show();
+                                            $('#cena_dodani_new').hide();
+                                            a_cena = 0;
+                                        }
+                                        jQuery('input[name="postovne_form2"][value="3142"]').removeAttr('disabled');
+                                        var druh = "s";
+                                        if(druh == 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').hide();
+                                            $('#cena_dodani_new').replaceWith('<span id="cena_dodani_new">Dobírka dle pobočky</span>');
+                                            a_cena = 1;
+                                        }
+                                        if(druh != 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').show();
+                                            $('#cena_dodani_new').hide();
+                                            a_cena = 0;
+                                        }
+                                        jQuery('input[name="postovne_form2"][value="3143"]').removeAttr('disabled');
+                                        var druh = "s";
+                                        if(druh == 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').hide();
+                                            $('#cena_dodani_new').replaceWith('<span id="cena_dodani_new">Dobírka dle pobočky</span>');
+                                            a_cena = 1;
+                                        }
+                                        if(druh != 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').show();
+                                            $('#cena_dodani_new').hide();
+                                            a_cena = 0;
+                                        }
+                                        jQuery('input[name="postovne_form2"][value="3147"]').removeAttr('disabled');
+                                        break;
+                                    case '15':
+                                        var druh = "k";
+                                        if(druh == 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').hide();
+                                            $('#cena_dodani_new').replaceWith('<span id="cena_dodani_new">Dobírka dle pobočky</span>');
+                                            a_cena = 1;
+                                        }
+                                        if(druh != 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').show();
+                                            $('#cena_dodani_new').hide();
+                                            a_cena = 0;
+                                        }
+                                        jQuery('input[name="postovne_form2"][value="2"]').removeAttr('disabled');
+                                        var druh = "k";
+                                        if(druh == 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').hide();
+                                            $('#cena_dodani_new').replaceWith('<span id="cena_dodani_new">Dobírka dle pobočky</span>');
+                                            a_cena = 1;
+                                        }
+                                        if(druh != 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').show();
+                                            $('#cena_dodani_new').hide();
+                                            a_cena = 0;
+                                        }
+                                        jQuery('input[name="postovne_form2"][value="3001"]').removeAttr('disabled');
+                                        var druh = "k";
+                                        if(druh == 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').hide();
+                                            $('#cena_dodani_new').replaceWith('<span id="cena_dodani_new">Dobírka dle pobočky</span>');
+                                            a_cena = 1;
+                                        }
+                                        if(druh != 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').show();
+                                            $('#cena_dodani_new').hide();
+                                            a_cena = 0;
+                                        }
+                                        jQuery('input[name="postovne_form2"][value="3122"]').removeAttr('disabled');
+                                        var druh = "k";
+                                        if(druh == 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').hide();
+                                            $('#cena_dodani_new').replaceWith('<span id="cena_dodani_new">Dobírka dle pobočky</span>');
+                                            a_cena = 1;
+                                        }
+                                        if(druh != 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').show();
+                                            $('#cena_dodani_new').hide();
+                                            a_cena = 0;
+                                        }
+                                        jQuery('input[name="postovne_form2"][value="3135"]').removeAttr('disabled');
+                                        var druh = "k";
+                                        if(druh == 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').hide();
+                                            $('#cena_dodani_new').replaceWith('<span id="cena_dodani_new">Dobírka dle pobočky</span>');
+                                            a_cena = 1;
+                                        }
+                                        if(druh != 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').show();
+                                            $('#cena_dodani_new').hide();
+                                            a_cena = 0;
+                                        }
+                                        jQuery('input[name="postovne_form2"][value="3138"]').removeAttr('disabled');
+                                        var druh = "k";
+                                        if(druh == 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').hide();
+                                            $('#cena_dodani_new').replaceWith('<span id="cena_dodani_new">Dobírka dle pobočky</span>');
+                                            a_cena = 1;
+                                        }
+                                        if(druh != 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').show();
+                                            $('#cena_dodani_new').hide();
+                                            a_cena = 0;
+                                        }
+                                        jQuery('input[name="postovne_form2"][value="3139"]').removeAttr('disabled');
+                                        var druh = "k";
+                                        if(druh == 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').hide();
+                                            $('#cena_dodani_new').replaceWith('<span id="cena_dodani_new">Dobírka dle pobočky</span>');
+                                            a_cena = 1;
+                                        }
+                                        if(druh != 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').show();
+                                            $('#cena_dodani_new').hide();
+                                            a_cena = 0;
+                                        }
+                                        jQuery('input[name="postovne_form2"][value="3140"]').removeAttr('disabled');
+                                        var druh = "k";
+                                        if(druh == 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').hide();
+                                            $('#cena_dodani_new').replaceWith('<span id="cena_dodani_new">Dobírka dle pobočky</span>');
+                                            a_cena = 1;
+                                        }
+                                        if(druh != 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').show();
+                                            $('#cena_dodani_new').hide();
+                                            a_cena = 0;
+                                        }
+                                        jQuery('input[name="postovne_form2"][value="3141"]').removeAttr('disabled');
+                                        var druh = "k";
+                                        if(druh == 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').hide();
+                                            $('#cena_dodani_new').replaceWith('<span id="cena_dodani_new">Dobírka dle pobočky</span>');
+                                            a_cena = 1;
+                                        }
+                                        if(druh != 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').show();
+                                            $('#cena_dodani_new').hide();
+                                            a_cena = 0;
+                                        }
+                                        jQuery('input[name="postovne_form2"][value="3142"]').removeAttr('disabled');
+                                        var druh = "k";
+                                        if(druh == 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').hide();
+                                            $('#cena_dodani_new').replaceWith('<span id="cena_dodani_new">Dobírka dle pobočky</span>');
+                                            a_cena = 1;
+                                        }
+                                        if(druh != 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').show();
+                                            $('#cena_dodani_new').hide();
+                                            a_cena = 0;
+                                        }
+                                        jQuery('input[name="postovne_form2"][value="3143"]').removeAttr('disabled');
+                                        var druh = "k";
+                                        if(druh == 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').hide();
+                                            $('#cena_dodani_new').replaceWith('<span id="cena_dodani_new">Dobírka dle pobočky</span>');
+                                            a_cena = 1;
+                                        }
+                                        if(druh != 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').show();
+                                            $('#cena_dodani_new').hide();
+                                            a_cena = 0;
+                                        }
+                                        jQuery('input[name="postovne_form2"][value="3147"]').removeAttr('disabled');
+                                        break;
+                                    case '16':
+                                        var druh = "qx";
+                                        if(druh == 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').hide();
+                                            $('#cena_dodani_new').replaceWith('<span id="cena_dodani_new">Dobírka dle pobočky</span>');
+                                            a_cena = 1;
+                                        }
+                                        if(druh != 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').show();
+                                            $('#cena_dodani_new').hide();
+                                            a_cena = 0;
+                                        }
+                                        jQuery('input[name="postovne_form2"][value="2"]').removeAttr('disabled');
+                                        var druh = "qx";
+                                        if(druh == 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').hide();
+                                            $('#cena_dodani_new').replaceWith('<span id="cena_dodani_new">Dobírka dle pobočky</span>');
+                                            a_cena = 1;
+                                        }
+                                        if(druh != 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').show();
+                                            $('#cena_dodani_new').hide();
+                                            a_cena = 0;
+                                        }
+                                        jQuery('input[name="postovne_form2"][value="3001"]').removeAttr('disabled');
+                                        var druh = "qx";
+                                        if(druh == 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').hide();
+                                            $('#cena_dodani_new').replaceWith('<span id="cena_dodani_new">Dobírka dle pobočky</span>');
+                                            a_cena = 1;
+                                        }
+                                        if(druh != 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').show();
+                                            $('#cena_dodani_new').hide();
+                                            a_cena = 0;
+                                        }
+                                        jQuery('input[name="postovne_form2"][value="3122"]').removeAttr('disabled');
+                                        var druh = "qx";
+                                        if(druh == 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').hide();
+                                            $('#cena_dodani_new').replaceWith('<span id="cena_dodani_new">Dobírka dle pobočky</span>');
+                                            a_cena = 1;
+                                        }
+                                        if(druh != 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').show();
+                                            $('#cena_dodani_new').hide();
+                                            a_cena = 0;
+                                        }
+                                        jQuery('input[name="postovne_form2"][value="3135"]').removeAttr('disabled');
+                                        var druh = "qx";
+                                        if(druh == 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').hide();
+                                            $('#cena_dodani_new').replaceWith('<span id="cena_dodani_new">Dobírka dle pobočky</span>');
+                                            a_cena = 1;
+                                        }
+                                        if(druh != 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').show();
+                                            $('#cena_dodani_new').hide();
+                                            a_cena = 0;
+                                        }
+                                        jQuery('input[name="postovne_form2"][value="3138"]').removeAttr('disabled');
+                                        var druh = "qx";
+                                        if(druh == 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').hide();
+                                            $('#cena_dodani_new').replaceWith('<span id="cena_dodani_new">Dobírka dle pobočky</span>');
+                                            a_cena = 1;
+                                        }
+                                        if(druh != 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').show();
+                                            $('#cena_dodani_new').hide();
+                                            a_cena = 0;
+                                        }
+                                        jQuery('input[name="postovne_form2"][value="3139"]').removeAttr('disabled');
+                                        var druh = "qx";
+                                        if(druh == 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').hide();
+                                            $('#cena_dodani_new').replaceWith('<span id="cena_dodani_new">Dobírka dle pobočky</span>');
+                                            a_cena = 1;
+                                        }
+                                        if(druh != 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').show();
+                                            $('#cena_dodani_new').hide();
+                                            a_cena = 0;
+                                        }
+                                        jQuery('input[name="postovne_form2"][value="3140"]').removeAttr('disabled');
+                                        var druh = "qx";
+                                        if(druh == 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').hide();
+                                            $('#cena_dodani_new').replaceWith('<span id="cena_dodani_new">Dobírka dle pobočky</span>');
+                                            a_cena = 1;
+                                        }
+                                        if(druh != 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').show();
+                                            $('#cena_dodani_new').hide();
+                                            a_cena = 0;
+                                        }
+                                        jQuery('input[name="postovne_form2"][value="3141"]').removeAttr('disabled');
+                                        var druh = "qx";
+                                        if(druh == 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').hide();
+                                            $('#cena_dodani_new').replaceWith('<span id="cena_dodani_new">Dobírka dle pobočky</span>');
+                                            a_cena = 1;
+                                        }
+                                        if(druh != 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').show();
+                                            $('#cena_dodani_new').hide();
+                                            a_cena = 0;
+                                        }
+                                        jQuery('input[name="postovne_form2"][value="3142"]').removeAttr('disabled');
+                                        var druh = "qx";
+                                        if(druh == 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').hide();
+                                            $('#cena_dodani_new').replaceWith('<span id="cena_dodani_new">Dobírka dle pobočky</span>');
+                                            a_cena = 1;
+                                        }
+                                        if(druh != 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').show();
+                                            $('#cena_dodani_new').hide();
+                                            a_cena = 0;
+                                        }
+                                        jQuery('input[name="postovne_form2"][value="3143"]').removeAttr('disabled');
+                                        var druh = "qx";
+                                        if(druh == 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').hide();
+                                            $('#cena_dodani_new').replaceWith('<span id="cena_dodani_new">Dobírka dle pobočky</span>');
+                                            a_cena = 1;
+                                        }
+                                        if(druh != 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').show();
+                                            $('#cena_dodani_new').hide();
+                                            a_cena = 0;
+                                        }
+                                        jQuery('input[name="postovne_form2"][value="3147"]').removeAttr('disabled');
+                                        break;
+                                }
+                            }
+                            else
+                            {
+                                switch(shipping_type_string[1])
+                                {
+                                    case '61200':
+                                        var druh = "hx";
+                                        if(druh == 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').hide();
+                                            $('#cena_dodani_new').replaceWith('<span id="cena_dodani_new">Dobírka dle pobočky</span>');
+                                            a_cena = 1;
+                                        }
+                                        if(druh != 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').show();
+                                            $('#cena_dodani_new').hide();
+                                            a_cena = 0;
+                                        }
+                                        jQuery('input[name="postovne_form2"][value="2"]').removeAttr('disabled');
+                                        var druh = "hx";
+                                        if(druh == 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').hide();
+                                            $('#cena_dodani_new').replaceWith('<span id="cena_dodani_new">Dobírka dle pobočky</span>');
+                                            a_cena = 1;
+                                        }
+                                        if(druh != 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').show();
+                                            $('#cena_dodani_new').hide();
+                                            a_cena = 0;
+                                        }
+                                        jQuery('input[name="postovne_form2"][value="3001"]').removeAttr('disabled');
+                                        var druh = "hx";
+                                        if(druh == 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').hide();
+                                            $('#cena_dodani_new').replaceWith('<span id="cena_dodani_new">Dobírka dle pobočky</span>');
+                                            a_cena = 1;
+                                        }
+                                        if(druh != 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').show();
+                                            $('#cena_dodani_new').hide();
+                                            a_cena = 0;
+                                        }
+                                        jQuery('input[name="postovne_form2"][value="3122"]').removeAttr('disabled');
+                                        var druh = "hx";
+                                        if(druh == 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').hide();
+                                            $('#cena_dodani_new').replaceWith('<span id="cena_dodani_new">Dobírka dle pobočky</span>');
+                                            a_cena = 1;
+                                        }
+                                        if(druh != 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').show();
+                                            $('#cena_dodani_new').hide();
+                                            a_cena = 0;
+                                        }
+                                        jQuery('input[name="postovne_form2"][value="3135"]').removeAttr('disabled');
+                                        var druh = "hx";
+                                        if(druh == 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').hide();
+                                            $('#cena_dodani_new').replaceWith('<span id="cena_dodani_new">Dobírka dle pobočky</span>');
+                                            a_cena = 1;
+                                        }
+                                        if(druh != 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').show();
+                                            $('#cena_dodani_new').hide();
+                                            a_cena = 0;
+                                        }
+                                        jQuery('input[name="postovne_form2"][value="3138"]').removeAttr('disabled');
+                                        var druh = "hx";
+                                        if(druh == 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').hide();
+                                            $('#cena_dodani_new').replaceWith('<span id="cena_dodani_new">Dobírka dle pobočky</span>');
+                                            a_cena = 1;
+                                        }
+                                        if(druh != 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').show();
+                                            $('#cena_dodani_new').hide();
+                                            a_cena = 0;
+                                        }
+                                        jQuery('input[name="postovne_form2"][value="3139"]').removeAttr('disabled');
+                                        var druh = "hx";
+                                        if(druh == 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').hide();
+                                            $('#cena_dodani_new').replaceWith('<span id="cena_dodani_new">Dobírka dle pobočky</span>');
+                                            a_cena = 1;
+                                        }
+                                        if(druh != 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').show();
+                                            $('#cena_dodani_new').hide();
+                                            a_cena = 0;
+                                        }
+                                        jQuery('input[name="postovne_form2"][value="3140"]').removeAttr('disabled');
+                                        var druh = "hx";
+                                        if(druh == 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').hide();
+                                            $('#cena_dodani_new').replaceWith('<span id="cena_dodani_new">Dobírka dle pobočky</span>');
+                                            a_cena = 1;
+                                        }
+                                        if(druh != 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').show();
+                                            $('#cena_dodani_new').hide();
+                                            a_cena = 0;
+                                        }
+                                        jQuery('input[name="postovne_form2"][value="3141"]').removeAttr('disabled');
+                                        var druh = "hx";
+                                        if(druh == 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').hide();
+                                            $('#cena_dodani_new').replaceWith('<span id="cena_dodani_new">Dobírka dle pobočky</span>');
+                                            a_cena = 1;
+                                        }
+                                        if(druh != 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').show();
+                                            $('#cena_dodani_new').hide();
+                                            a_cena = 0;
+                                        }
+                                        jQuery('input[name="postovne_form2"][value="3142"]').removeAttr('disabled');
+                                        var druh = "hx";
+                                        if(druh == 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').hide();
+                                            $('#cena_dodani_new').replaceWith('<span id="cena_dodani_new">Dobírka dle pobočky</span>');
+                                            a_cena = 1;
+                                        }
+                                        if(druh != 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').show();
+                                            $('#cena_dodani_new').hide();
+                                            a_cena = 0;
+                                        }
+                                        jQuery('input[name="postovne_form2"][value="3143"]').removeAttr('disabled');
+                                        var druh = "hx";
+                                        if(druh == 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').hide();
+                                            $('#cena_dodani_new').replaceWith('<span id="cena_dodani_new">Dobírka dle pobočky</span>');
+                                            a_cena = 1;
+                                        }
+                                        if(druh != 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').show();
+                                            $('#cena_dodani_new').hide();
+                                            a_cena = 0;
+                                        }
+                                        jQuery('input[name="postovne_form2"][value="3147"]').removeAttr('disabled');
+                                        break;
+                                    case '61438':
+                                        var druh = "z";
+                                        if(druh == 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').hide();
+                                            $('#cena_dodani_new').replaceWith('<span id="cena_dodani_new">Dobírka dle pobočky</span>');
+                                            a_cena = 1;
+                                        }
+                                        if(druh != 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').show();
+                                            $('#cena_dodani_new').hide();
+                                            a_cena = 0;
+                                        }
+                                        jQuery('input[name="postovne_form2"][value="2"]').removeAttr('disabled');
+                                        var druh = "z";
+                                        if(druh == 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').hide();
+                                            $('#cena_dodani_new').replaceWith('<span id="cena_dodani_new">Dobírka dle pobočky</span>');
+                                            a_cena = 1;
+                                        }
+                                        if(druh != 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').show();
+                                            $('#cena_dodani_new').hide();
+                                            a_cena = 0;
+                                        }
+                                        jQuery('input[name="postovne_form2"][value="3001"]').removeAttr('disabled');
+                                        var druh = "z";
+                                        if(druh == 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').hide();
+                                            $('#cena_dodani_new').replaceWith('<span id="cena_dodani_new">Dobírka dle pobočky</span>');
+                                            a_cena = 1;
+                                        }
+                                        if(druh != 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').show();
+                                            $('#cena_dodani_new').hide();
+                                            a_cena = 0;
+                                        }
+                                        jQuery('input[name="postovne_form2"][value="3122"]').removeAttr('disabled');
+                                        var druh = "z";
+                                        if(druh == 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').hide();
+                                            $('#cena_dodani_new').replaceWith('<span id="cena_dodani_new">Dobírka dle pobočky</span>');
+                                            a_cena = 1;
+                                        }
+                                        if(druh != 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').show();
+                                            $('#cena_dodani_new').hide();
+                                            a_cena = 0;
+                                        }
+                                        jQuery('input[name="postovne_form2"][value="3135"]').removeAttr('disabled');
+                                        var druh = "z";
+                                        if(druh == 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').hide();
+                                            $('#cena_dodani_new').replaceWith('<span id="cena_dodani_new">Dobírka dle pobočky</span>');
+                                            a_cena = 1;
+                                        }
+                                        if(druh != 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').show();
+                                            $('#cena_dodani_new').hide();
+                                            a_cena = 0;
+                                        }
+                                        jQuery('input[name="postovne_form2"][value="3138"]').removeAttr('disabled');
+                                        var druh = "z";
+                                        if(druh == 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').hide();
+                                            $('#cena_dodani_new').replaceWith('<span id="cena_dodani_new">Dobírka dle pobočky</span>');
+                                            a_cena = 1;
+                                        }
+                                        if(druh != 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').show();
+                                            $('#cena_dodani_new').hide();
+                                            a_cena = 0;
+                                        }
+                                        jQuery('input[name="postovne_form2"][value="3139"]').removeAttr('disabled');
+                                        var druh = "z";
+                                        if(druh == 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').hide();
+                                            $('#cena_dodani_new').replaceWith('<span id="cena_dodani_new">Dobírka dle pobočky</span>');
+                                            a_cena = 1;
+                                        }
+                                        if(druh != 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').show();
+                                            $('#cena_dodani_new').hide();
+                                            a_cena = 0;
+                                        }
+                                        jQuery('input[name="postovne_form2"][value="3140"]').removeAttr('disabled');
+                                        var druh = "z";
+                                        if(druh == 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').hide();
+                                            $('#cena_dodani_new').replaceWith('<span id="cena_dodani_new">Dobírka dle pobočky</span>');
+                                            a_cena = 1;
+                                        }
+                                        if(druh != 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').show();
+                                            $('#cena_dodani_new').hide();
+                                            a_cena = 0;
+                                        }
+                                        jQuery('input[name="postovne_form2"][value="3141"]').removeAttr('disabled');
+                                        var druh = "z";
+                                        if(druh == 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').hide();
+                                            $('#cena_dodani_new').replaceWith('<span id="cena_dodani_new">Dobírka dle pobočky</span>');
+                                            a_cena = 1;
+                                        }
+                                        if(druh != 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').show();
+                                            $('#cena_dodani_new').hide();
+                                            a_cena = 0;
+                                        }
+                                        jQuery('input[name="postovne_form2"][value="3142"]').removeAttr('disabled');
+                                        var druh = "z";
+                                        if(druh == 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').hide();
+                                            $('#cena_dodani_new').replaceWith('<span id="cena_dodani_new">Dobírka dle pobočky</span>');
+                                            a_cena = 1;
+                                        }
+                                        if(druh != 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').show();
+                                            $('#cena_dodani_new').hide();
+                                            a_cena = 0;
+                                        }
+                                        jQuery('input[name="postovne_form2"][value="3143"]').removeAttr('disabled');
+                                        var druh = "z";
+                                        if(druh == 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').hide();
+                                            $('#cena_dodani_new').replaceWith('<span id="cena_dodani_new">Dobírka dle pobočky</span>');
+                                            a_cena = 1;
+                                        }
+                                        if(druh != 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').show();
+                                            $('#cena_dodani_new').hide();
+                                            a_cena = 0;
+                                        }
+                                        jQuery('input[name="postovne_form2"][value="3147"]').removeAttr('disabled');
+                                        break;
+                                    case '62291':
+                                        var druh = "wx";
+                                        if(druh == 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').hide();
+                                            $('#cena_dodani_new').replaceWith('<span id="cena_dodani_new">Dobírka dle pobočky</span>');
+                                            a_cena = 1;
+                                        }
+                                        if(druh != 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').show();
+                                            $('#cena_dodani_new').hide();
+                                            a_cena = 0;
+                                        }
+                                        jQuery('input[name="postovne_form2"][value="2"]').removeAttr('disabled');
+                                        var druh = "wx";
+                                        if(druh == 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').hide();
+                                            $('#cena_dodani_new').replaceWith('<span id="cena_dodani_new">Dobírka dle pobočky</span>');
+                                            a_cena = 1;
+                                        }
+                                        if(druh != 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').show();
+                                            $('#cena_dodani_new').hide();
+                                            a_cena = 0;
+                                        }
+                                        jQuery('input[name="postovne_form2"][value="3001"]').removeAttr('disabled');
+                                        var druh = "wx";
+                                        if(druh == 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').hide();
+                                            $('#cena_dodani_new').replaceWith('<span id="cena_dodani_new">Dobírka dle pobočky</span>');
+                                            a_cena = 1;
+                                        }
+                                        if(druh != 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').show();
+                                            $('#cena_dodani_new').hide();
+                                            a_cena = 0;
+                                        }
+                                        jQuery('input[name="postovne_form2"][value="3122"]').removeAttr('disabled');
+                                        var druh = "wx";
+                                        if(druh == 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').hide();
+                                            $('#cena_dodani_new').replaceWith('<span id="cena_dodani_new">Dobírka dle pobočky</span>');
+                                            a_cena = 1;
+                                        }
+                                        if(druh != 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').show();
+                                            $('#cena_dodani_new').hide();
+                                            a_cena = 0;
+                                        }
+                                        jQuery('input[name="postovne_form2"][value="3135"]').removeAttr('disabled');
+                                        var druh = "wx";
+                                        if(druh == 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').hide();
+                                            $('#cena_dodani_new').replaceWith('<span id="cena_dodani_new">Dobírka dle pobočky</span>');
+                                            a_cena = 1;
+                                        }
+                                        if(druh != 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').show();
+                                            $('#cena_dodani_new').hide();
+                                            a_cena = 0;
+                                        }
+                                        jQuery('input[name="postovne_form2"][value="3138"]').removeAttr('disabled');
+                                        var druh = "wx";
+                                        if(druh == 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').hide();
+                                            $('#cena_dodani_new').replaceWith('<span id="cena_dodani_new">Dobírka dle pobočky</span>');
+                                            a_cena = 1;
+                                        }
+                                        if(druh != 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').show();
+                                            $('#cena_dodani_new').hide();
+                                            a_cena = 0;
+                                        }
+                                        jQuery('input[name="postovne_form2"][value="3139"]').removeAttr('disabled');
+                                        var druh = "wx";
+                                        if(druh == 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').hide();
+                                            $('#cena_dodani_new').replaceWith('<span id="cena_dodani_new">Dobírka dle pobočky</span>');
+                                            a_cena = 1;
+                                        }
+                                        if(druh != 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').show();
+                                            $('#cena_dodani_new').hide();
+                                            a_cena = 0;
+                                        }
+                                        jQuery('input[name="postovne_form2"][value="3140"]').removeAttr('disabled');
+                                        var druh = "wx";
+                                        if(druh == 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').hide();
+                                            $('#cena_dodani_new').replaceWith('<span id="cena_dodani_new">Dobírka dle pobočky</span>');
+                                            a_cena = 1;
+                                        }
+                                        if(druh != 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').show();
+                                            $('#cena_dodani_new').hide();
+                                            a_cena = 0;
+                                        }
+                                        jQuery('input[name="postovne_form2"][value="3141"]').removeAttr('disabled');
+                                        var druh = "wx";
+                                        if(druh == 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').hide();
+                                            $('#cena_dodani_new').replaceWith('<span id="cena_dodani_new">Dobírka dle pobočky</span>');
+                                            a_cena = 1;
+                                        }
+                                        if(druh != 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').show();
+                                            $('#cena_dodani_new').hide();
+                                            a_cena = 0;
+                                        }
+                                        jQuery('input[name="postovne_form2"][value="3142"]').removeAttr('disabled');
+                                        var druh = "wx";
+                                        if(druh == 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').hide();
+                                            $('#cena_dodani_new').replaceWith('<span id="cena_dodani_new">Dobírka dle pobočky</span>');
+                                            a_cena = 1;
+                                        }
+                                        if(druh != 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').show();
+                                            $('#cena_dodani_new').hide();
+                                            a_cena = 0;
+                                        }
+                                        jQuery('input[name="postovne_form2"][value="3143"]').removeAttr('disabled');
+                                        var druh = "wx";
+                                        if(druh == 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').hide();
+                                            $('#cena_dodani_new').replaceWith('<span id="cena_dodani_new">Dobírka dle pobočky</span>');
+                                            a_cena = 1;
+                                        }
+                                        if(druh != 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').show();
+                                            $('#cena_dodani_new').hide();
+                                            a_cena = 0;
+                                        }
+                                        jQuery('input[name="postovne_form2"][value="3147"]').removeAttr('disabled');
+                                        break;
+                                    case '61439':
+                                        var druh = "z_sk";
+                                        if(druh == 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').hide();
+                                            $('#cena_dodani_new').replaceWith('<span id="cena_dodani_new">Dobírka dle pobočky</span>');
+                                            a_cena = 1;
+                                        }
+                                        if(druh != 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').show();
+                                            $('#cena_dodani_new').hide();
+                                            a_cena = 0;
+                                        }
+                                        jQuery('input[name="postovne_form2"][value="2"]').removeAttr('disabled');
+                                        var druh = "z_sk";
+                                        if(druh == 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').hide();
+                                            $('#cena_dodani_new').replaceWith('<span id="cena_dodani_new">Dobírka dle pobočky</span>');
+                                            a_cena = 1;
+                                        }
+                                        if(druh != 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').show();
+                                            $('#cena_dodani_new').hide();
+                                            a_cena = 0;
+                                        }
+                                        jQuery('input[name="postovne_form2"][value="3001"]').removeAttr('disabled');
+                                        var druh = "z_sk";
+                                        if(druh == 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').hide();
+                                            $('#cena_dodani_new').replaceWith('<span id="cena_dodani_new">Dobírka dle pobočky</span>');
+                                            a_cena = 1;
+                                        }
+                                        if(druh != 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').show();
+                                            $('#cena_dodani_new').hide();
+                                            a_cena = 0;
+                                        }
+                                        jQuery('input[name="postovne_form2"][value="3122"]').removeAttr('disabled');
+                                        var druh = "z_sk";
+                                        if(druh == 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').hide();
+                                            $('#cena_dodani_new').replaceWith('<span id="cena_dodani_new">Dobírka dle pobočky</span>');
+                                            a_cena = 1;
+                                        }
+                                        if(druh != 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').show();
+                                            $('#cena_dodani_new').hide();
+                                            a_cena = 0;
+                                        }
+                                        jQuery('input[name="postovne_form2"][value="3135"]').removeAttr('disabled');
+                                        var druh = "z_sk";
+                                        if(druh == 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').hide();
+                                            $('#cena_dodani_new').replaceWith('<span id="cena_dodani_new">Dobírka dle pobočky</span>');
+                                            a_cena = 1;
+                                        }
+                                        if(druh != 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').show();
+                                            $('#cena_dodani_new').hide();
+                                            a_cena = 0;
+                                        }
+                                        jQuery('input[name="postovne_form2"][value="3138"]').removeAttr('disabled');
+                                        var druh = "z_sk";
+                                        if(druh == 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').hide();
+                                            $('#cena_dodani_new').replaceWith('<span id="cena_dodani_new">Dobírka dle pobočky</span>');
+                                            a_cena = 1;
+                                        }
+                                        if(druh != 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').show();
+                                            $('#cena_dodani_new').hide();
+                                            a_cena = 0;
+                                        }
+                                        jQuery('input[name="postovne_form2"][value="3139"]').removeAttr('disabled');
+                                        var druh = "z_sk";
+                                        if(druh == 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').hide();
+                                            $('#cena_dodani_new').replaceWith('<span id="cena_dodani_new">Dobírka dle pobočky</span>');
+                                            a_cena = 1;
+                                        }
+                                        if(druh != 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').show();
+                                            $('#cena_dodani_new').hide();
+                                            a_cena = 0;
+                                        }
+                                        jQuery('input[name="postovne_form2"][value="3140"]').removeAttr('disabled');
+                                        var druh = "z_sk";
+                                        if(druh == 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').hide();
+                                            $('#cena_dodani_new').replaceWith('<span id="cena_dodani_new">Dobírka dle pobočky</span>');
+                                            a_cena = 1;
+                                        }
+                                        if(druh != 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').show();
+                                            $('#cena_dodani_new').hide();
+                                            a_cena = 0;
+                                        }
+                                        jQuery('input[name="postovne_form2"][value="3141"]').removeAttr('disabled');
+                                        var druh = "z_sk";
+                                        if(druh == 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').hide();
+                                            $('#cena_dodani_new').replaceWith('<span id="cena_dodani_new">Dobírka dle pobočky</span>');
+                                            a_cena = 1;
+                                        }
+                                        if(druh != 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').show();
+                                            $('#cena_dodani_new').hide();
+                                            a_cena = 0;
+                                        }
+                                        jQuery('input[name="postovne_form2"][value="3142"]').removeAttr('disabled');
+                                        var druh = "z_sk";
+                                        if(druh == 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').hide();
+                                            $('#cena_dodani_new').replaceWith('<span id="cena_dodani_new">Dobírka dle pobočky</span>');
+                                            a_cena = 1;
+                                        }
+                                        if(druh != 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').show();
+                                            $('#cena_dodani_new').hide();
+                                            a_cena = 0;
+                                        }
+                                        jQuery('input[name="postovne_form2"][value="3143"]').removeAttr('disabled');
+                                        var druh = "z_sk";
+                                        if(druh == 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').hide();
+                                            $('#cena_dodani_new').replaceWith('<span id="cena_dodani_new">Dobírka dle pobočky</span>');
+                                            a_cena = 1;
+                                        }
+                                        if(druh != 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').show();
+                                            $('#cena_dodani_new').hide();
+                                            a_cena = 0;
+                                        }
+                                        jQuery('input[name="postovne_form2"][value="3147"]').removeAttr('disabled');
+                                        break;
+                                    case '62292':
+                                        var druh = "k";
+                                        if(druh == 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').hide();
+                                            $('#cena_dodani_new').replaceWith('<span id="cena_dodani_new">Dobírka dle pobočky</span>');
+                                            a_cena = 1;
+                                        }
+                                        if(druh != 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').show();
+                                            $('#cena_dodani_new').hide();
+                                            a_cena = 0;
+                                        }
+                                        jQuery('input[name="postovne_form2"][value="2"]').removeAttr('disabled');
+                                        var druh = "k";
+                                        if(druh == 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').hide();
+                                            $('#cena_dodani_new').replaceWith('<span id="cena_dodani_new">Dobírka dle pobočky</span>');
+                                            a_cena = 1;
+                                        }
+                                        if(druh != 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').show();
+                                            $('#cena_dodani_new').hide();
+                                            a_cena = 0;
+                                        }
+                                        jQuery('input[name="postovne_form2"][value="3001"]').removeAttr('disabled');
+                                        var druh = "k";
+                                        if(druh == 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').hide();
+                                            $('#cena_dodani_new').replaceWith('<span id="cena_dodani_new">Dobírka dle pobočky</span>');
+                                            a_cena = 1;
+                                        }
+                                        if(druh != 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').show();
+                                            $('#cena_dodani_new').hide();
+                                            a_cena = 0;
+                                        }
+                                        jQuery('input[name="postovne_form2"][value="3122"]').removeAttr('disabled');
+                                        var druh = "k";
+                                        if(druh == 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').hide();
+                                            $('#cena_dodani_new').replaceWith('<span id="cena_dodani_new">Dobírka dle pobočky</span>');
+                                            a_cena = 1;
+                                        }
+                                        if(druh != 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').show();
+                                            $('#cena_dodani_new').hide();
+                                            a_cena = 0;
+                                        }
+                                        jQuery('input[name="postovne_form2"][value="3135"]').removeAttr('disabled');
+                                        var druh = "k";
+                                        if(druh == 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').hide();
+                                            $('#cena_dodani_new').replaceWith('<span id="cena_dodani_new">Dobírka dle pobočky</span>');
+                                            a_cena = 1;
+                                        }
+                                        if(druh != 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').show();
+                                            $('#cena_dodani_new').hide();
+                                            a_cena = 0;
+                                        }
+                                        jQuery('input[name="postovne_form2"][value="3138"]').removeAttr('disabled');
+                                        var druh = "k";
+                                        if(druh == 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').hide();
+                                            $('#cena_dodani_new').replaceWith('<span id="cena_dodani_new">Dobírka dle pobočky</span>');
+                                            a_cena = 1;
+                                        }
+                                        if(druh != 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').show();
+                                            $('#cena_dodani_new').hide();
+                                            a_cena = 0;
+                                        }
+                                        jQuery('input[name="postovne_form2"][value="3139"]').removeAttr('disabled');
+                                        var druh = "k";
+                                        if(druh == 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').hide();
+                                            $('#cena_dodani_new').replaceWith('<span id="cena_dodani_new">Dobírka dle pobočky</span>');
+                                            a_cena = 1;
+                                        }
+                                        if(druh != 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').show();
+                                            $('#cena_dodani_new').hide();
+                                            a_cena = 0;
+                                        }
+                                        jQuery('input[name="postovne_form2"][value="3140"]').removeAttr('disabled');
+                                        var druh = "k";
+                                        if(druh == 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').hide();
+                                            $('#cena_dodani_new').replaceWith('<span id="cena_dodani_new">Dobírka dle pobočky</span>');
+                                            a_cena = 1;
+                                        }
+                                        if(druh != 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').show();
+                                            $('#cena_dodani_new').hide();
+                                            a_cena = 0;
+                                        }
+                                        jQuery('input[name="postovne_form2"][value="3141"]').removeAttr('disabled');
+                                        var druh = "k";
+                                        if(druh == 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').hide();
+                                            $('#cena_dodani_new').replaceWith('<span id="cena_dodani_new">Dobírka dle pobočky</span>');
+                                            a_cena = 1;
+                                        }
+                                        if(druh != 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').show();
+                                            $('#cena_dodani_new').hide();
+                                            a_cena = 0;
+                                        }
+                                        jQuery('input[name="postovne_form2"][value="3142"]').removeAttr('disabled');
+                                        var druh = "k";
+                                        if(druh == 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').hide();
+                                            $('#cena_dodani_new').replaceWith('<span id="cena_dodani_new">Dobírka dle pobočky</span>');
+                                            a_cena = 1;
+                                        }
+                                        if(druh != 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').show();
+                                            $('#cena_dodani_new').hide();
+                                            a_cena = 0;
+                                        }
+                                        jQuery('input[name="postovne_form2"][value="3143"]').removeAttr('disabled');
+                                        var druh = "k";
+                                        if(druh == 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').hide();
+                                            $('#cena_dodani_new').replaceWith('<span id="cena_dodani_new">Dobírka dle pobočky</span>');
+                                            a_cena = 1;
+                                        }
+                                        if(druh != 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').show();
+                                            $('#cena_dodani_new').hide();
+                                            a_cena = 0;
+                                        }
+                                        jQuery('input[name="postovne_form2"][value="3147"]').removeAttr('disabled');
+                                        break;
+                                    case '61440':
+                                        var druh = "qx";
+                                        if(druh == 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').hide();
+                                            $('#cena_dodani_new').replaceWith('<span id="cena_dodani_new">Dobírka dle pobočky</span>');
+                                            a_cena = 1;
+                                        }
+                                        if(druh != 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').show();
+                                            $('#cena_dodani_new').hide();
+                                            a_cena = 0;
+                                        }
+                                        jQuery('input[name="postovne_form2"][value="2"]').removeAttr('disabled');
+                                        var druh = "qx";
+                                        if(druh == 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').hide();
+                                            $('#cena_dodani_new').replaceWith('<span id="cena_dodani_new">Dobírka dle pobočky</span>');
+                                            a_cena = 1;
+                                        }
+                                        if(druh != 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').show();
+                                            $('#cena_dodani_new').hide();
+                                            a_cena = 0;
+                                        }
+                                        jQuery('input[name="postovne_form2"][value="3001"]').removeAttr('disabled');
+                                        var druh = "qx";
+                                        if(druh == 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').hide();
+                                            $('#cena_dodani_new').replaceWith('<span id="cena_dodani_new">Dobírka dle pobočky</span>');
+                                            a_cena = 1;
+                                        }
+                                        if(druh != 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').show();
+                                            $('#cena_dodani_new').hide();
+                                            a_cena = 0;
+                                        }
+                                        jQuery('input[name="postovne_form2"][value="3122"]').removeAttr('disabled');
+                                        var druh = "qx";
+                                        if(druh == 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').hide();
+                                            $('#cena_dodani_new').replaceWith('<span id="cena_dodani_new">Dobírka dle pobočky</span>');
+                                            a_cena = 1;
+                                        }
+                                        if(druh != 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').show();
+                                            $('#cena_dodani_new').hide();
+                                            a_cena = 0;
+                                        }
+                                        jQuery('input[name="postovne_form2"][value="3135"]').removeAttr('disabled');
+                                        var druh = "qx";
+                                        if(druh == 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').hide();
+                                            $('#cena_dodani_new').replaceWith('<span id="cena_dodani_new">Dobírka dle pobočky</span>');
+                                            a_cena = 1;
+                                        }
+                                        if(druh != 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').show();
+                                            $('#cena_dodani_new').hide();
+                                            a_cena = 0;
+                                        }
+                                        jQuery('input[name="postovne_form2"][value="3138"]').removeAttr('disabled');
+                                        var druh = "qx";
+                                        if(druh == 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').hide();
+                                            $('#cena_dodani_new').replaceWith('<span id="cena_dodani_new">Dobírka dle pobočky</span>');
+                                            a_cena = 1;
+                                        }
+                                        if(druh != 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').show();
+                                            $('#cena_dodani_new').hide();
+                                            a_cena = 0;
+                                        }
+                                        jQuery('input[name="postovne_form2"][value="3139"]').removeAttr('disabled');
+                                        var druh = "qx";
+                                        if(druh == 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').hide();
+                                            $('#cena_dodani_new').replaceWith('<span id="cena_dodani_new">Dobírka dle pobočky</span>');
+                                            a_cena = 1;
+                                        }
+                                        if(druh != 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').show();
+                                            $('#cena_dodani_new').hide();
+                                            a_cena = 0;
+                                        }
+                                        jQuery('input[name="postovne_form2"][value="3140"]').removeAttr('disabled');
+                                        var druh = "qx";
+                                        if(druh == 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').hide();
+                                            $('#cena_dodani_new').replaceWith('<span id="cena_dodani_new">Dobírka dle pobočky</span>');
+                                            a_cena = 1;
+                                        }
+                                        if(druh != 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').show();
+                                            $('#cena_dodani_new').hide();
+                                            a_cena = 0;
+                                        }
+                                        jQuery('input[name="postovne_form2"][value="3141"]').removeAttr('disabled');
+                                        var druh = "qx";
+                                        if(druh == 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').hide();
+                                            $('#cena_dodani_new').replaceWith('<span id="cena_dodani_new">Dobírka dle pobočky</span>');
+                                            a_cena = 1;
+                                        }
+                                        if(druh != 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').show();
+                                            $('#cena_dodani_new').hide();
+                                            a_cena = 0;
+                                        }
+                                        jQuery('input[name="postovne_form2"][value="3142"]').removeAttr('disabled');
+                                        var druh = "qx";
+                                        if(druh == 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').hide();
+                                            $('#cena_dodani_new').replaceWith('<span id="cena_dodani_new">Dobírka dle pobočky</span>');
+                                            a_cena = 1;
+                                        }
+                                        if(druh != 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').show();
+                                            $('#cena_dodani_new').hide();
+                                            a_cena = 0;
+                                        }
+                                        jQuery('input[name="postovne_form2"][value="3143"]').removeAttr('disabled');
+                                        var druh = "qx";
+                                        if(druh == 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').hide();
+                                            $('#cena_dodani_new').replaceWith('<span id="cena_dodani_new">Dobírka dle pobočky</span>');
+                                            a_cena = 1;
+                                        }
+                                        if(druh != 'u')
+                                        {
+                                            $('#cena_dodani_new').next('#cena_dodani_puvodni').show();
+                                            $('#cena_dodani_new').hide();
+                                            a_cena = 0;
+                                        }
+                                        jQuery('input[name="postovne_form2"][value="3147"]').removeAttr('disabled');
+                                        break;
+                                }
+                            }
+                        });
+                    }
+
+                    if (jQuery('input[name="postovne_form"]:checked').length > 0)
+                    {
+                        jQuery('input[name="postovne_form"]:checked').click();
+                        if (typeof(hide_unpaired_payments) === "function")
+                        {
+                            hide_unpaired_payments();
+                        }
+                        else
+                        {
+                            jQuery("#basket_payments_list tr").css("display", "table-row");
+                        }
+                    }
+                    else
+                    {
+                        jQuery("#basket_payments_list tr").css("display", "table-row");
+                    }
+                }
+            });
+        </script>
+        <input type="hidden" id="314536_basic" value="0"><input type="hidden" id="delivery_discount_314536_basic" value="0"><input type="hidden" id="314538_basic" value="60"><input type="hidden" id="delivery_discount_314538_basic" value="0"><input type="hidden" id="314901_basic" value="100"><input type="hidden" id="delivery_discount_314901_basic" value="0"><input type="hidden" id="314665_basic" value="100"><input type="hidden" id="delivery_discount_314665_basic" value="0">
+        <noscript>
+            <style type="text/css">
+                #basket_payments_list tr { display: table-row !important; }
+            </style>
+        </noscript>
+
+        <div class="shipping-and-payment">
+            <table width="100%">
+                <thead>
+                <tr>
+                    <th width="45%">
+                        <div style="text-align: left">
+                            Způsob dopravy        </div>
+                    </th>
+                    <th width="10%">&nbsp;</th>
+                    <th width="45%">
+                        <div style="text-align: left">
+                            Způsob platby        </div>
+                    </th>
+                </tr>
+                </thead>
+
+                <tbody><tr>
+                    <td valign="top" width="45%" class="td-delivery-area ">
+                        <table width="100%" cellspacing="2" cellpadding="2" id="basket_shipping_list">
+                            <tbody><tr>
+                                <td valign="top" class="e-basket-delivery-radio"><label for="carry_options_radio_5-basic_314536"><div class="e-basket-delivery-image"><img src="" border="0" height="19" alt=""></div></label>                      <input id="carry_options_radio_5-basic_314536" class="carry_options_radio" type="radio" name="postovne_form" value="314536_basic">
+                                    <input name="delivery_discount[carry_options_radio_5-basic_314536]" value="0" type="hidden">                    </td>
+                                <td>                      <label for="carry_options_radio_5-basic_314536">
+                                        Osobní odběr Praha 10                                  </label>
+                                </td>
+                                <td align="right" valign="top">
+                                    0&nbsp;Kč                    </td>
+                            </tr>
+                            <tr>
+                                <td valign="top" class="e-basket-delivery-radio"><label for="carry_options_radio_7-basic_314538"><div class="e-basket-delivery-image"><img src="" border="0" height="19" alt=""></div></label>                      <input id="carry_options_radio_7-basic_314538" class="carry_options_radio" type="radio" name="postovne_form" value="314538_basic">
+                                    <input name="delivery_discount[carry_options_radio_7-basic_314538]" value="0" type="hidden">                    </td>
+                                <td>                      <label for="carry_options_radio_7-basic_314538">
+                                        Zásilkovna CZ                                  </label>
+                                </td>
+                                <td align="right" valign="top">
+                                    +60,00&nbsp;Kč                    </td>
+                            </tr>
+                            <tr>
+                                <td valign="top" class="e-basket-delivery-radio"><label for="carry_options_radio_15-basic_314901"><div class="e-basket-delivery-image"><img src="" border="0" height="19" alt=""></div></label>                      <input id="carry_options_radio_15-basic_314901" class="carry_options_radio" type="radio" name="postovne_form" value="314901_basic">
+                                    <input name="delivery_discount[carry_options_radio_15-basic_314901]" value="0" type="hidden">                    </td>
+                                <td>                      <label for="carry_options_radio_15-basic_314901">
+                                        DPD                                  </label>
+                                </td>
+                                <td align="right" valign="top">
+                                    +100,00&nbsp;Kč                    </td>
+                            </tr>
+                            <tr>
+                                <td valign="top" class="e-basket-delivery-radio"><label for="carry_options_radio_11-basic_314665"><div class="e-basket-delivery-image"><img src="" border="0" height="19" alt=""></div></label>                      <input id="carry_options_radio_11-basic_314665" class="carry_options_radio" type="radio" name="postovne_form" value="314665_basic">
+                                    <input name="delivery_discount[carry_options_radio_11-basic_314665]" value="0" type="hidden">                    </td>
+                                <td>                      <label for="carry_options_radio_11-basic_314665">
+                                        Zásilkovna SK                                  </label>
+                                </td>
+                                <td align="right" valign="top">
+                                    +100,00&nbsp;Kč                    </td>
+                            </tr>
+                            </tbody></table>
+                    </td>
+                    <td class="td-delivery-payment-spacer" width="10%"></td>
+                    <td class="td-payments-area " valign="top" width="45%">
+                        <table width="100%" cellspacing="2" cellpadding="2" id="basket_payments_list">
+                            <tbody><tr class="tr_payment_not_in_group" style="display: table-row;">
+                                <td valign="top" class="e-basket-payment-radio"><label for="postovne_form2_3000_1"><div class="e-basket-payment-image"><img src="" border="0" height="19" alt=""></div></label>                      <input id="postovne_form2_3000_1" type="radio" name="postovne_form2" value="1" disabled="disabled">
+                                </td>
+                                <td class="e-basket-payment-description">
+                                    <label for="postovne_form2_3000_1" class="e-basket-payment-label-decription">
+                                        Hotově při předání                      </label>
+                                </td>
+                                <td align="right" valign="top" class="e-basket-payment-price" id="cena_dodani">
+                                                <span id="cena_dodani_puvodni">
+                          0&nbsp;Kč                        </span>
+                                </td>
+                            </tr>
+                            <tr class="tr_payment_not_in_group" style="display: table-row;">
+                                <td valign="top" class="e-basket-payment-radio"><label for="postovne_form2_3000_2"><div class="e-basket-payment-image"><img src="" border="0" height="19" alt=""></div></label>                      <input id="postovne_form2_3000_2" type="radio" name="postovne_form2" value="2" disabled="disabled">
+                                </td>
+                                <td class="e-basket-payment-description">
+                                    <label for="postovne_form2_3000_2" class="e-basket-payment-label-decription">
+                                        <img id="description_payment_2" class="payment_description" src="/admin/images/help_small.png" alt="Popis platby" oldtitle="Zobrazit více informací" title="Zobrazit více informací"><div class="description_content" id="description_payment_content_2"><p>Platbu prosím pošlete na bankovní účet číslo&nbsp;2100747944/2010, jako variabilní symbol použijte číslo objednávky. Děkujeme</p></div>Platba předem na účet                      </label>
+                                </td>
+                                <td align="right" valign="top" class="e-basket-payment-price" id="cena_dodani">
+                                                <span id="cena_dodani_puvodni">
+                          0&nbsp;Kč                        </span>
+                                </td>
+                            </tr>
+                            <tr class="tr_payment_group_parent" style="display: table-row;">
+                                <td colspan="3" class="payment_group_parent"></td>
+                            </tr>
+                            <tr class="tr_payment_group" style="display: table-row;">
+                                <td colspan="3" class="payment_group">Platební karty</td>
+                            </tr>
+                            <tr class="tr_payment_in_group" style="display: table-row;">
+                                <td valign="top" class="e-basket-payment-radio"><label for="postovne_form2_3122" class="e-basket-payment-label-image"><div class="e-basket-payment-image payment-image-3122 payment-image-3121"><img src="//www.bebirdie.com/asset/images/payment/payment_3122.png" alt="Logo"></div></label>                      <input id="postovne_form2_3122" type="radio" name="postovne_form2" value="3122" disabled="disabled">
+                                </td>
+                                <td class="e-basket-payment-description">
+                                    <label for="postovne_form2_3122" class="e-basket-payment-label-decription">
+                                        Platební karta                      </label>
+                                </td>
+                                <td align="right" class="e-basket-payment-price">
+                                                <span id="cena_dodani_puvodni">
+                          0&nbsp;Kč                        </span>
+                                </td>
+                            </tr>
+                            <tr class="tr_payment_group" style="display: table-row;">
+                                <td colspan="3" class="payment_group">Online bankovní převody</td>
+                            </tr>
+                            <tr class="tr_payment_in_group" style="display: table-row;">
+                                <td valign="top" class="e-basket-payment-radio"><label for="postovne_form2_3135" class="e-basket-payment-label-image"><div class="e-basket-payment-image payment-image-3135 payment-image-3121"><img src="//www.bebirdie.com/asset/images/payment/payment_3135.png" alt="Logo"></div></label>                      <input id="postovne_form2_3135" type="radio" name="postovne_form2" value="3135" disabled="disabled">
+                                </td>
+                                <td class="e-basket-payment-description">
+                                    <label for="postovne_form2_3135" class="e-basket-payment-label-decription">
+                                        UniCredit Bank (ePlatba)                      </label>
+                                </td>
+                                <td align="right" class="e-basket-payment-price">
+                                                <span id="cena_dodani_puvodni">
+                          0&nbsp;Kč                        </span>
+                                </td>
+                            </tr>
+                            <tr class="tr_payment_in_group" style="display: table-row;">
+                                <td valign="top" class="e-basket-payment-radio"><label for="postovne_form2_3138" class="e-basket-payment-label-image"><div class="e-basket-payment-image payment-image-3138 payment-image-3121"><img src="//www.bebirdie.com/asset/images/payment/payment_3138.png" alt="Logo"></div></label>                      <input id="postovne_form2_3138" type="radio" name="postovne_form2" value="3138" disabled="disabled">
+                                </td>
+                                <td class="e-basket-payment-description">
+                                    <label for="postovne_form2_3138" class="e-basket-payment-label-decription">
+                                        Raiffeisen Bank (ePlatba+)                      </label>
+                                </td>
+                                <td align="right" class="e-basket-payment-price">
+                                                <span id="cena_dodani_puvodni">
+                          0&nbsp;Kč                        </span>
+                                </td>
+                            </tr>
+                            <tr class="tr_payment_in_group" style="display: table-row;">
+                                <td valign="top" class="e-basket-payment-radio"><label for="postovne_form2_3139" class="e-basket-payment-label-image"><div class="e-basket-payment-image payment-image-3139 payment-image-3121"><img src="//www.bebirdie.com/asset/images/payment/payment_3139.png" alt="Logo"></div></label>                      <input id="postovne_form2_3139" type="radio" name="postovne_form2" value="3139" disabled="disabled">
+                                </td>
+                                <td class="e-basket-payment-description">
+                                    <label for="postovne_form2_3139" class="e-basket-payment-label-decription">
+                                        Komerční Banka (ePlatba+)                      </label>
+                                </td>
+                                <td align="right" class="e-basket-payment-price">
+                                                <span id="cena_dodani_puvodni">
+                          0&nbsp;Kč                        </span>
+                                </td>
+                            </tr>
+                            <tr class="tr_payment_in_group" style="display: table-row;">
+                                <td valign="top" class="e-basket-payment-radio"><label for="postovne_form2_3142" class="e-basket-payment-label-image"><div class="e-basket-payment-image payment-image-3142 payment-image-3121"><img src="//www.bebirdie.com/asset/images/payment/payment_3142.png" alt="Logo"></div></label>                      <input id="postovne_form2_3142" type="radio" name="postovne_form2" value="3142" disabled="disabled">
+                                </td>
+                                <td class="e-basket-payment-description">
+                                    <label for="postovne_form2_3142" class="e-basket-payment-label-decription">
+                                        FIO Banka (ePlatba+)                      </label>
+                                </td>
+                                <td align="right" class="e-basket-payment-price">
+                                                <span id="cena_dodani_puvodni">
+                          0&nbsp;Kč                        </span>
+                                </td>
+                            </tr>
+                            <tr class="tr_payment_in_group" style="display: table-row;">
+                                <td valign="top" class="e-basket-payment-radio"><label for="postovne_form2_3143" class="e-basket-payment-label-image"><div class="e-basket-payment-image payment-image-3143 payment-image-3121"><img src="//www.bebirdie.com/asset/images/payment/payment_3143.png" alt="Logo"></div></label>                      <input id="postovne_form2_3143" type="radio" name="postovne_form2" value="3143" disabled="disabled">
+                                </td>
+                                <td class="e-basket-payment-description">
+                                    <label for="postovne_form2_3143" class="e-basket-payment-label-decription">
+                                        Česká spořitelna (ePlatba+)                      </label>
+                                </td>
+                                <td align="right" class="e-basket-payment-price">
+                                                <span id="cena_dodani_puvodni">
+                          0&nbsp;Kč                        </span>
+                                </td>
+                            </tr>
+                            <tr class="tr_payment_in_group" style="display: table-row;">
+                                <td valign="top" class="e-basket-payment-radio"><label for="postovne_form2_3147" class="e-basket-payment-label-image"><div class="e-basket-payment-image payment-image-3147 payment-image-3121"><img src="//www.bebirdie.com/asset/images/payment/payment_3147.png" alt="Logo"></div></label>                      <input id="postovne_form2_3147" type="radio" name="postovne_form2" value="3147" disabled="disabled">
+                                </td>
+                                <td class="e-basket-payment-description">
+                                    <label for="postovne_form2_3147" class="e-basket-payment-label-decription">
+                                        mBank                      </label>
+                                </td>
+                                <td align="right" class="e-basket-payment-price">
+                                                <span id="cena_dodani_puvodni">
+                          0&nbsp;Kč                        </span>
+                                </td>
+                            </tr>
+                            <tr class="tr_payment_group_parent" style="display: table-row;">
+                                <td colspan="3" class="payment_group_parent"></td>
+                            </tr>
+                            </tbody></table>
+                    </td>
+                    <td class="td-delivery-payment-tail">&nbsp;</td>
+                </tr>
+                </tbody></table>
+        </div>
+        <table class="cart" width="100%">
+            <tbody><tr>
+                <td width="100%">
+                    <div class="break"></div>
+                    Pro zachování barev a elasticity doporučuji prát ručně (max. na 30 st.) a žehlit na mírný st. Oblečení z biobavlny je střiženo větší a po prvním vyprání se mírně srazí (srážlivost materiálu je zohledněna).                  <div class="break"></div>
+                </td>
+            </tr>
+            </tbody></table>
+        <table class="cart" width="100%">
+            <tbody><tr>
+                <td width="100%">
+                    <div class="buttons">
+                        <table width="100%">
+                            <tbody><tr>
+                                <td width="50%">
+                                    <ul class="bookmark continue_shopping"><!-- BOOKMARKS-->
+                                        <li><a id="btn_continue_shopping" href="/">Pokračovat v nákupu</a></li>
+                                    </ul>
+                                </td>
+                                <td width="50%">
+                                    <p class="fright">
+                                        <input type="submit" id="submit_save" value="Objednat" name="save">
+                                    </p>
+                                </td>
+                            </tr>
+                            </tbody></table>
+                        <div class="break"></div>
+                    </div>
+                    <input type="hidden" name="id_stabil" value="3b59ca0b12db2b9be4f98be9b369ff7b">
+                    <input type="hidden" name="from_basket" value="a">
+                    <div class="break"></div>
+                </td>
+            </tr>
+            </tbody></table>
+    </form
+{% endblock %}
