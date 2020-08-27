@@ -2,11 +2,12 @@
 
 namespace App\Controller;
 
-use GuzzleHttp\Psr7\Request;
+//use GuzzleHttp\Psr7\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Request;
 use App\Entity\Product;
 use App\Repository\ProductRepository;
 
@@ -43,24 +44,53 @@ class BasketController extends AbstractController
     /**
      * @Route("/add/{id}", name="basket_add")
      */
-    public function add (ProductRepository $productRepository, SessionInterface $session, Product $product/*, int $idProduct*/): Response
+    public function add (ProductRepository $productRepository, SessionInterface $session, Product $product, Request $request/*, int $idProduct*/): Response
     {
         $currentBasket = $session->get('basket', []);
+        $quantity = $request->query->get('quantity');
 
-        $currentBasket[] = [
-            'image'=>$product-> getImage(),
-            'id'=>$product->getId(),
-            'name'=>$product->getName(),
-            'price'=> $product ->getPrice(),
-            //'quantity'=> $quantity = 1
-        ];
+        dump($currentBasket);
+
+        $inbasket = false;
+
+            dump($currentBasket);
+            foreach ($currentBasket as $basketIndex => $basketItem) {
+                dump($basketItem['id']);
+                dump($product->getId());
+                if ($basketItem['id'] == $product->getId()) {
+                    dump($basketItem);
+                    $basketItem['quantity'] = (int)$basketItem['quantity'] + 1;
+                    dump($basketItem);
+                    $inbasket = true;
+                    $currentBasket[$basketIndex] = $basketItem;
+
+                    break;
+                }
+            }
+            dump($currentBasket);
+
+            if ($inbasket == false){
+                $currentBasket[] = [
+                    'image'=>$product-> getImage(),
+                    'id'=>$product->getId(),
+                    'name'=>$product->getName(),
+                    'price'=> $product ->getPrice(),
+                    'quantity'=> $quantity
+                ];
+                dump($currentBasket);
+            }
+
+
+
+
 
         $session->set('basket', $currentBasket);
 
-        //$productStock = $product->getStock();
         $basket = $session->get('basket', []);
         $productRepository->findAll($product);
 
+
+        //redirect();
         return $this->render('basket/index.html.twig', [
             'controller_name' => 'BasketController',
             'product'=>$product,

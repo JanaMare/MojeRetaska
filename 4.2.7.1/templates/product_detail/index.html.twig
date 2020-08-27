@@ -14,14 +14,12 @@
                     <h3 class="card-title">{{product.Name}}</h3>
                     <p class="card-text"> Cena: {{product.Price}} Kč</p>
                     <p class="card-text"> Skladem: {{product.Stock}} ks</p>
+                    <a href="{{ path('basketbasket_add', {'id': product.id}) }}" class="btn btn-success">Vložit do košíku</a>
                     <p class="card-text"> {{product.Description}} </p>
-                    <a href="{{ path('basket_add', {'id': product.id}) }}" class="btn btn-success">Vložit do košíku</a>
                 </div>
             </div>
         </div>
     </div>
-
-
 
 
 
