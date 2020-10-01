@@ -4,7 +4,6 @@ namespace App\Controller;
 
 use App\Entity\Order;
 use App\Form\OrderAdminType;
-use App\Form\OrderType;
 use App\Form\ProductType;
 use App\Repository\OrderRepository;
 use App\Entity\Product;

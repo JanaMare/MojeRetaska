@@ -70,34 +70,42 @@ class BasketController extends AbstractController
             dump($currentBasket);
 
             if ($inbasket == false){
-                $currentBasket[] = [
+                $currentBasket[$product->getId()] = [
                     'image'=>$product-> getImage(),
                     'id'=>$product->getId(),
                     'name'=>$product->getName(),
                     'price'=> $product ->getPrice(),
-                    'quantity'=> $quantity
+                    'quantity'=> $quantity = 1,
                 ];
                 dump($currentBasket);
             }
-
-
-
-
 
         $session->set('basket', $currentBasket);
 
         $basket = $session->get('basket', []);
         $productRepository->findAll($product);
 
-
-        //redirect();
-        return $this->render('basket/index.html.twig', [
+        return $this->redirectToRoute ('basketbasket_index', [
             'controller_name' => 'BasketController',
             'product'=>$product,
             $session->get("basket"),
             'basket'=>$basket
 
         ]);
+    }
+
+
+    /**
+     * @Route("/delete/{id}", name="basket_delete")
+     */
+    public function delete(SessionInterface $session, Product $product): Response
+    {
+        $session->start();
+        $basket = $session->get('basket', []);
+        unset($basket[$product->getID()]);
+        $session->set('basket', $basket);
+
+        return $this->redirectToRoute('basketbasket_index');
     }
 
     /**
