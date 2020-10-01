@@ -10,7 +10,7 @@
             <th class="order-product-image-header" width="110">
                 <div align="left"></div>
             </th>
-            <th width="58%" class="center order_box_text_header">
+            <th width="48%" class="center order_box_text_header">
                 <div align="left">Název</div>
             </th>
             <th width="10%" class="center order_row_count_header">
@@ -27,35 +27,36 @@
         </thead>
         <tbody>
 
-
+        {% set totalPrice = 0 %}
         {% for product in basket%}
         <tr class="basket-product-main-info" data-name="" data-id="" data-price="" data-qty="" >
            <td class="order-product-image">
                 <img class="product_img" src="{{ product.image }}" width="100" border="0" alt="{{ product.name }}" title="{{ product.name }}">
             </td>
             <td height="25" class="box_text line-add-note">
-                <a href="/-d332_1039494592.htm">{{product.name}}</a>
+                <a href="{{ path('product_detail', {'id': product.id}) }}">{{product.name}}</a>
             </td>
             <td height="25" class="row_count">
-                <input class="items_count product-pcs-spinner" value="1" name="quantity" maxlength="6" size="6" type="text">
-                <span class="basket-item-unit">{{product.quantity}} ks</span>
+                <input class="items_count product-pcs-spinner" value={{product.quantity|default('1') }} name="quantity" maxlength="6" size="6" type="text">
+                <span class="basket-item-unit"> ks</span>
             </td>
             <td height="25" class="prices prices-extra-unit" align="right">
               <span class="price-novat">
                 <span class="price-value">
-                  {{product.price}} &nbspKč </span>
+                  {{product.price|number_format(2, ',', ' ')}} &nbsp;Kč </span>
               </span>
             </td>
             <td height="25" class="prices prices-final" align="right">
               <span class="price-vat">
                 <span class="price-value def_color">
-                  {{ (product.price)}} &nbsp;Kč                </span>
+                  {{ (product.price|number_format * product.quantity|default('1'))|number_format(2, ',', ' ') }} &nbsp;Kč
+                    {% set totalPrice = totalPrice + product.price*product.quantity %}
+                </span>
               </span>
             </td>
             <td height="25" class="basket-remove-item" align="center">
               <span class="nadpis bold">
-                <a class="delete_btns remove_product_from_basket_icons" id="deleteid87983341" href="/basket-remove.htm?pid=87983341">
-                  &nbsp;            x    </a>
+                <a href="{{path('basketbasket_delete', {'id': product.id}) }}" class="btn btn-outline-">X</a>
               </span>            </td>
         </tr>
 
@@ -73,19 +74,22 @@
             <span class="price-vat">
               <span class="price-value def_color">
                 <span id="fullprice">
-                  <span class="price_small">&nbsp;Kč</span>
+                  <span class="price_small">{{ totalPrice|number_format(2, ',', ' ') }}&nbsp;Kč</span>
                   <br>
-                                      <span class="wrapper-tax-payer">
+                                      {#  <span class="wrapper-tax-payer">
                                           </span>
                                         <br>
                                             <span class="wrapper-recalc-btn">
                                                   <input type="submit" id="submit_recalc" value="Přepočítat" name="recalc">
-                                                </span>
+                                                </span>#}
                                         </span>
               </span>
+                <a href="{{ path('order_form') }}" class="btn btn-success">Pokračovat v objednávce</a>
             </span>
             </td>
         </tr>
+
+
         </tbody>
 
        </table>

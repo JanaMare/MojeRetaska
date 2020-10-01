@@ -40,8 +40,8 @@
             </div>
             <h4>Rekapitulace nákupu</h4>
             <div>
-               Cena zboží: <span id="productPrice" {% set productsPrice = order.product.price * order.product.amount %} >
-                </span> Kč
+               {# Cena zboží: <span id="productPrice" {% set productsPrice = order.product.price * order.product.amount %} >
+                </span> Kč #}
             </div>
             <br>
             <div>
@@ -64,30 +64,18 @@
 
  {% block javascripts %}
      <script>
-
          $(document).ready(function(e){
              shippingPrice = $('#order_shipping option:selected').attr('data-price');
              $('#shipping').text(shippingPrice);
-
-
              paymentPrice = $('#order_payment option:selected').attr('data-price');
              $('#payment').text(paymentPrice);
-
-
              productPrice = $('#order_product option:selected').text();
              $('#product').text(productPrice);
-
-
              let shippingPrice = $('#shipping').text();
              let paymentPrice = $('#payment').text();
              let productsPrice = $('#productPrice').text();
              let totalPrice = parseInt(shippingPrice) + parseInt(paymentPrice) + parseInt(productsPrice);
              $('#totalPrice').text(totalPrice);
          })
-
-
-
-
-
      </script>
  {% endblock %}
